@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:53:00 by gemartin          #+#    #+#             */
-/*   Updated: 2023/02/25 03:05:57 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:11:25 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,9 @@ char	*ft_strchr_gnl(char *s, int c);
 char	*ft_substr_gnl(char *s, unsigned int start, size_t len);
 char	*ft_get_next_line(int fd);
 char	*ft_free(char **str);
+
+char	*clean_storage(char *storage);
+char	*ft_free(char **str);
+char	*new_line(char *storage);
+char	*read_file(int fd, char *storage);
 #endif

@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   ft_read_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 12:42:12 by gemartin          #+#    #+#             */
-/*   Updated: 2023/02/25 18:59:59 by estruckm         ###   ########.fr       */
+/*   Created: 2023/02/25 18:58:22 by estruckm          #+#    #+#             */
+/*   Updated: 2023/02/25 18:58:44 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*ft_get_next_line(int fd)
+char	*new_line(char *storage)
 {
-	static char	*storage[OPEN_MAX];
-	char		*line;
+	char	*line;
+	char	*ptr;
+	int		len;
 
-	if (fd < 0)
-		return (NULL);
-	if ((storage[fd] != 0 && ft_strchr_gnl(storage[fd], '\n') == 0)
-		||storage[fd] == 0)
-		storage[fd] = read_file(fd, storage[fd]);
-	if (storage[fd] == 0)
-		return (NULL);
-	line = new_line(storage[fd]);
+	ptr = ft_strchr_gnl(storage, '\n');
+	len = (ptr - storage) + 1;
+	line = ft_substr_gnl(storage, 0, len);
 	if (line == 0)
-		return (ft_free(&storage[fd]));
-	storage[fd] = clean_storage(storage[fd]);
+		return (NULL);
 	return (line);
 }

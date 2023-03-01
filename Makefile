@@ -6,19 +6,23 @@
 #    By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 22:55:36 by estruckm          #+#    #+#              #
-#    Updated: 2023/02/25 03:30:06 by estruckm         ###   ########.fr        #
+#    Updated: 2023/02/27 06:22:35 by estruckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-SRCS = main.c \
+SRCS =	main.c \
+		ft_fdf_atoi.c \
+		ft_fdf_print_list.c
+
 
 
 CC = gcc
 CCFLAG = -Wall -Werror -Wextra
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 LIB = -C ./libft/
-GET = -clean ./Get_next_line/
+GET = -C ./Get_next_line/
+P_S = -C ./push_swap
 
 SUCCESS_COLOR = \033[32m
 
@@ -28,21 +32,24 @@ D_SRCS = ./srcs/
 all : $(NAME)
 
 %.o:$(D_SRCS)%.c
-	@$(CC) $(CCFLAG) -I./Get_next_line -I./libft -I/includes -o $@ -c $<
+	$(CC) $(CCFLAG) -I ./push_swap -I ./Get_next_line -I ./libft -I /includes -o $@ -c $<
 
 $(NAME) : $(OBJECT)
-	@make $(LIB)
-	@make $(GET)
-	@$(CC) $(CCFLAG) $(MLXFLAGS) -o $(NAME) $(OBJECT) -L./Get_next_line -lft -L./libft -lft
-	@echo "$(SUCCESS_COLOR)$(NAME) - Compiled with Success"
+	make $(LIB)
+	make $(GET)
+	make $(P_S)
+	$(CC) $(CCFLAG) $(MLXFLAGS) $(OBJECT) push_swap/push_swap.a -lft Get_next_line/get_next_line_bonus.a -lft -L ./libft -lft -o $(NAME) -g
+	echo "$(SUCCESS_COLOR)$(NAME) - Compiled with Success"
 
 clean :
+	@make clean $(P_S)
 	@make clean $(LIB)
 	@make clean $(GET)
 	@echo "$(SUCCESS_COLOR)$(NAME) - Cleaned with Success"
 	@/bin/rm -rf $(OBJECT)
 
 fclean : clean
+	@make fclean $(P_S)
 	@make fclean $(LIB)
 	@make fclean $(GET)
 	@rm -rf ./$(NAME)
