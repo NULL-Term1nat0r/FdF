@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 10:23:17 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/01 03:34:23 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:53:44 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,11 @@ void ft_get_arguments(t_point_lst *t_point, char **argv, t_initialise_window *wi
 	char **s_array;
 	int x;
 	int y;
-
+	ft_initialise_array(t_point, argv);
 	x = window->s_x;
 	y = window->s_y;
 
 	i = 0;
-	ft_initialise_array(t_point, argv);
 	fd = open(argv[1], O_RDONLY);
 	while (i < t_point->rows)
 	{
@@ -98,7 +97,7 @@ void ft_get_arguments(t_point_lst *t_point, char **argv, t_initialise_window *wi
 		{
 			//fprintf(stderr, "i: %d j: %d\n", i, j);
 			t_point->data_x[i][j] = x;
-			t_point->data_y[i][j] = y - (ft_fdf_atoi(s_array[j]) * 5);
+			t_point->data_y[i][j] = y - (ft_fdf_atoi(s_array[j]) * 10);
 			x -= 10;
 			y += 10;
 			// printf("%d ", ft_fdf_atoi(s_array[j]));
@@ -111,52 +110,120 @@ void ft_get_arguments(t_point_lst *t_point, char **argv, t_initialise_window *wi
 	close(fd);
 }
 
-// // int draw_line(void *mlx, void *win, int row, int coloum);
-// // {
-// // 	double deltaX;
-// // 	double deltaY;
-// // 	int pixels;
+void ft_draw_line_horizontal(t_point_lst *t_point, t_initialise_window *stack)
+{
+	double deltaX;
+	double deltaY;
+	double pixelX;
+	double pixelY;
+	int pixels;
+	int i;
+	int j;
 
+	i = 0;
+	while (i < t_point->rows)
+	{
+		j = 0;
+		while (j < t_point->coloums - 1)
+		{
+			pixelX = t_point->data_x[i][j];
+			pixelY = t_point->data_y[i][j];
 
-// // 	deltaX = endX - beginX; // 10
-// // 	deltaY = endY - beginY; // 0
-// // 	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY)); //  pixels = sqrt((10 * 10) + (0 * 0)) = sqrt(100) = 10
+			deltaX = t_point->data_x[i][j + 1] - t_point->data_x[i][j];
+			// deltaX = endX - beginX;
+			deltaY = t_point->data_y[i][j + 1] - t_point->data_y[i][j];
+			// deltaY = endY - beginY;
+			pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+			deltaX /= pixels; // 1
+ 			deltaY /= pixels; // 0
+			while (pixels)
+			{
+				mlx_pixel_put(stack->mlx, stack->win, pixelX, pixelY, 0xFF0000);
+				pixelX += deltaX;
+				pixelY += deltaY;
+				--pixels;
+			}
+			j++;
+		}
+		i++;
+	}
+}
 
-// // 	deltaX /= pixels; // 1
-// // 	deltaY /= pixels; // 0
+void ft_draw_line_vertical(t_point_lst *t_point, t_initialise_window *stack)
+{
+	double deltaX;
+	double deltaY;
+	double pixelX;
+	double pixelY;
+	int pixels;
+	int i;
+	int j;
 
-// // 	double pixelX = beginX;
-// // 	double pixelY = beginY;
-// // 	while (pixels)
-// // 	{
-// // 		mlx_pixel_put(mlx, win, pixelX, pixelY, color);
-// // 		pixelX += deltaX;
-// // 		pixelY += deltaY;
-// // 		--pixels;
-// // 	}
+	i = 0;
+	while (i < t_point->coloums)
+	{
+		j = 0;
+		while (j < t_point->rows - 1)
+		{
+			pixelX = t_point->data_x[j][i];
+			pixelY = t_point->data_y[j][i];
+
+			deltaX = t_point->data_x[j + 1][i] - t_point->data_x[j][i];
+			// deltaX = endX - beginX;
+			deltaY = t_point->data_y[j + 1][i] - t_point->data_y[j][i];
+			// deltaY = endY - beginY;
+			pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+			deltaX /= pixels; // 1
+ 			deltaY /= pixels; // 0
+			while (pixels)
+			{
+				mlx_pixel_put(stack->mlx, stack->win, pixelX, pixelY, 0xFF0000);
+				pixelX += deltaX;
+				pixelY += deltaY;
+				--pixels;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+//  	deltaX = endX - beginX; // 10
+//  	deltaY = endY - beginY; // 0
+//  	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY)); //  pixels = sqrt((10 * 10) + (0 * 0)) = sqrt(100) = 10
+//  	deltaX /= pixels; // 1
+//  	deltaY /= pixels; // 0
+//  	double pixelX = beginX;
+//  	double pixelY = beginY;
+//  	while (pixels)
+//  	{
+//  		mlx_pixel_put(mlx, win, pixelX, pixelY, 0xFF0000);
+//  		pixelX += deltaX;
+//  		pixelY += deltaY;
+//  		--pixels;
+//  	}
 // }
 
-void ft_put_pixels(void *mlx, void *win, t_point_lst *stack)
+void ft_put_pixels(t_point_lst *stack, t_initialise_window *window)
 {
 	int i;
 	int j;
-	int z;
+	// int z;
 
 
 	i = 0;
 	j = 0;
-
 	while (i < stack->rows)
 	{
 		j = 0;
 		while (j < stack->coloums)
 		{
-			z = 0;
-			while (z <= 10)
-			{
-				mlx_pixel_put(mlx, win, stack->data_x[i][j] - z, stack->data_y[i][j] + z, 0xFF0000);
-				z++;
-			}
+			mlx_pixel_put(window->mlx, window->win, stack->data_x[i][j], stack->data_y[i][j], 0xFF0000);
+			// z = 0;
+			// while (z <= 10)
+			// {
+			// 	mlx_pixel_put(window->mlx, window->win, stack->data_x[i][j] - z, stack->data_y[i][j] + z, 0xFF0000);
+			// 	z++;
+			// }
 			j++;
 		}
 		i++;
@@ -165,86 +232,35 @@ void ft_put_pixels(void *mlx, void *win, t_point_lst *stack)
 
 void ft_initialize_window(t_initialise_window *stack)
 {
+
 	stack->s_x = 500;
 	stack->s_y = 50;
 	stack->window_width = 1000;
 	stack->window_height = 1000;
+	stack->mlx = mlx_init();
+	stack->win = mlx_new_window(stack->mlx, stack->window_width, stack->window_height, "My Window");
 }
 
 int			main(int argc, char **argv)
 {
-	void *mlx_ptr;
-    void *win_ptr;
-	int i;
-	int j;
-	int x;
-	int y;
-	// char *s;
-	// char **s_array;
-	j = 0;
-	i = 0;
-	x = 500;
-	y = 50;
 	t_point_lst stack;
 	t_initialise_window window;
 
     // Initialize mlx
-    mlx_ptr = mlx_init();
 	if (argc > 2)
 		printf("Error");
     // Create a window
 	ft_initialize_window(&window);
-    win_ptr = mlx_new_window(mlx_ptr, window.window_width, window.window_height, "My Window");
-	// int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color);
-
-	// draw_line(mlx_ptr, win_ptr, 10, 10, 20, 10, 0xFFFFFF); // This should create a white horizontal line about 10 pixels long.
-	// draw_line(line_array, mlx_ptr, win_ptr);
+	printf("s_x : %d\n", window.s_x);
+	printf("s_y : %d\n", window.s_y);
 	ft_get_arguments(&stack, argv, &window);
-	ft_put_pixels(mlx_ptr, win_ptr, &stack);
-	// ft_fdf_print_list(&stack, ft_get_rows(argv), ft_get_coloums(argv));
-	// while (i < 9)
-	// {
-	// 	fprintf(stderr, "%d ", stack.data[2][i]);
-	// 	i++;
-	// }
-	// i = 0;
-	// printf("\n");
+	// ft_put_pixels(&stack, &window);
+	ft_draw_line_horizontal(&stack, &window);
+	ft_draw_line_vertical(&stack, &window);
+	fprintf(stderr, "test\n");
 
-	// while (i < stack.rows)
-	// {
-	// 	j = 0;
-	// 	while (j < stack.coloums)
-	// 	{
-	// 		printf("current coordninates: %d | %d\n", x, y + stack.data[i][j]);
-	// 		mlx_pixel_put(mlx_ptr, win_ptr, x, y - (stack.data[i][j] * 5), 0xFF0000);
-	// 		x -= 10;
-	// 		y += 10;
-	// 		j ++;
-	// 	}
-	// 	i++;
-	// 	x += (stack.coloums + 1) * 10;
-	// 	y -= (stack.coloums - 1) * 10;
-	// }
-
-	// mlx_pixel_put(mlx_ptr, win_ptr, 500, 500 + stack.data[3][4], 0xFF0000);
-	// mlx_pixel_put(mlx_ptr, win_ptr, 490, 490 + stack.data[3][4], 0xFF0000);
-
-	// ft_put_pixels(mlx_ptr, win_ptr, &stack, &window);
-	// mlx_pixel_put(mlx_ptr, win_ptr, 250, 250, 0xFF0000);
-	// printf("%d\n", ft_get_rows(argv));
-	// printf("%d\n", ft_get_rows(argv));ç
-	// printf("%d\n", ft_get_coloums(argv));
-
-    // Draw a pixel at (250, 250) with color 0xFF0000 (red)
-    //mlx_pixel_put(mlx_ptr, win_ptr, 100, 400, 0xFF0000);
-	// mlx_pixel_put(mlx_ptr, win_ptr, 260, 250, 0xFF0000);
-	// mlx_pixel_put(mlx_ptr, win_ptr, 250, 260, 0xFF0000);
-	// mlx_pixel_put(mlx_ptr, win_ptr, 260, 260, 0xFF0000);
-
-
-
-    // Display the window and wait for user input
-    mlx_loop(mlx_ptr);
+    mlx_loop(window.mlx);
+	fprintf(stderr, "test\n");
 	return (0);
 }
 // minilibx files https://github.com/gcamerli/minilibx/tree/master/src

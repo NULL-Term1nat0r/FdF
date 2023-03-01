@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:16:04 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/01 02:54:55 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:39:50 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ typedef struct s_point_lst
 	int coloums;
 } t_point_lst;
 
-typedef struct s_initialize_window
+typedef struct s_initialise_window
 {
 	int s_x;
 	int s_y;
 	int window_width;
 	int window_height;
+	void *win;
+	void *mlx;
 } t_initialise_window;
 
 int	ft_fdf_atoi(char *argv);
