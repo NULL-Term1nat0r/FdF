@@ -6,16 +6,21 @@
 #    By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 22:55:36 by estruckm          #+#    #+#              #
-#    Updated: 2023/02/27 06:22:35 by estruckm         ###   ########.fr        #
+#    Updated: 2023/03/05 21:10:24 by estruckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 SRCS =	main.c \
 		ft_fdf_atoi.c \
-		ft_fdf_print_list.c
-
-
+		ft_fdf_print_list.c \
+		ft_draw.c \
+		ft_get_arguments.c \
+		ft_get_coordinates.c \
+		ft_initialise_array.c \
+		ft_keyboard_input.c \
+		ft_expose.c \
+		ft_putpixel_to_image.c \
 
 CC = gcc
 CCFLAG = -Wall -Werror -Wextra

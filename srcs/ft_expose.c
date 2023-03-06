@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_line.c                                      :+:      :+:    :+:   */
+/*   ft_expose.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 15:56:38 by estruckm          #+#    #+#             */
-/*   Updated: 2023/02/27 16:03:59 by estruckm         ###   ########.fr       */
+/*   Created: 2023/03/05 19:47:54 by estruckm          #+#    #+#             */
+/*   Updated: 2023/03/06 03:05:27 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void ft_put_line(void *mlx_ptr, void *win_ptr, t_point_lst *t_point, t_initialise_window *stack)
+int	ft_expose(t_point_lst *t_point, t_initialise_window *window)
 {
-	double delta_x;
-	double delta_y;
-	int pixels;
-
-	pixels 
+	ft_draw(t_point, window);
+	mlx_destroy_image(window->mlx, window->img_ptr);
+	mlx_put_image_to_window(window->mlx, window->win, window->img_ptr, 0, 0);
+	return 0;
 }

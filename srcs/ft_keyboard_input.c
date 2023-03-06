@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_point_coordinates.c                         :+:      :+:    :+:   */
+/*   ft_keyboard_input.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 02:26:42 by estruckm          #+#    #+#             */
-/*   Updated: 2023/02/25 02:46:07 by estruckm         ###   ########.fr       */
+/*   Created: 2023/03/05 19:30:15 by estruckm          #+#    #+#             */
+/*   Updated: 2023/03/06 02:09:14 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-char **ft_get_point_coordinates(int argc, char **argv)
+int ft_keyboard_input(int keycode, t_initialise_window *window)
 {
-	const char *return_string;
-
-	return_string = ft_split(*argv, ' ');
+	if (keycode == KEYBOARD_ESC)
+	{
+		mlx_clear_window(window->mlx, window->win);
+		exit(0);
+	}
+	if (keycode == KEYBOARD_B)
+		window->color = COLOR_BLUE;
+	return 0;
 }
