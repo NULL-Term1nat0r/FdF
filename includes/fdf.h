@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:16:04 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/06 02:10:00 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/07 02:19:05 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void 	ft_initialise_array(t_point_lst *t_point, char **argv);
 int		ft_expose(t_point_lst *t_point, t_initialise_window *window);
 int		ft_keyboard_input(int keycode, t_initialise_window *window);
 int		*ft_putpixel_to_image(t_initialise_window *window, int x, int y);
+void display_control(t_initialise_window *init);
 
 
 #endif

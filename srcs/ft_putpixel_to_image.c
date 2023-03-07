@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 20:51:16 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/06 02:14:23 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/07 04:44:48 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int *ft_putpixel_to_image(t_initialise_window *window, int x, int y)
 
 	index = window->data_ptr + (y * window->size_line + x * window->bpp / 8);
 	*(int *)index = window->color;
+	printf("testcolor: %d\n", window->color);
 	return ((int *) index);
 }
 

@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 10:23:17 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/06 02:11:09 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/07 05:19:52 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void ft_initialize_window(t_initialise_window *stack)
 	stack->window_width = 1500;
 	stack->window_height = 1500;
 	stack->s_x = 750;
-	stack->s_y = 750;
+	stack->s_y = 300;
 	stack->color = 0xFF0000;
 	stack->mlx = mlx_init();
 	stack->win = mlx_new_window(stack->mlx, stack->window_width, stack->window_height, "My Window");
@@ -74,8 +74,7 @@ int	main(int argc, char **argv)
 		printf("Malloc error.");
 
 	ft_initialize_window(window);
-	printf("width: %d", window->window_width);
-	printf("height: %d", window->window_height);
+	// display_control(window);
 	if (argc > 2)
 		printf("Error");
 	ft_get_arguments(stack, argv);
@@ -88,12 +87,22 @@ int	main(int argc, char **argv)
 	printf("height: %d", window->window_height);
 
 	ft_draw(stack, window);
+	window->color = COLOR_BLUE;
+	ft_draw(stack, window);
+	// ft_putpixel_to_image(window, 500, 500);
+	// ft_putpixel_to_image(window, 500, 502);
+	mlx_put_image_to_window(window->mlx, window->win, window->img_ptr, 0, 0);
+	ft_draw(stack, window);
+	ft_draw(stack, window);
+	mlx_put_image_to_window(window->mlx, window->win, window->img_ptr, 0, 0);
+	// ft_putpixel_to_image(window, 500, 500);
+	// mlx_put_image_to_window(window->mlx, window->win, window->img_ptr, 0, 0);
 	// ft_putpixel_to_image(window, 200, 400);
 	// ft_putpixel_to_image(window, 400, 200);
 
-	mlx_put_image_to_window(window->mlx, window->win, window->img_ptr, 0, 0);
-	mlx_hook(window->win, 2, 3, ft_keyboard_input, &window);
-	mlx_expose_hook(window->win, ft_expose, window);
+	// mlx_put_image_to_window(window->mlx, window->win, window->img_ptr, 0, 0);
+	mlx_key_hook(window->win, ft_keyboard_input, window);
+	// mlx_expose_hook(window->win, ft_expose, window);
 	mlx_loop(window->mlx);
 	return (0);
 }
