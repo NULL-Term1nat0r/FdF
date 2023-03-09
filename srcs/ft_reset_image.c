@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expose.c                                        :+:      :+:    :+:   */
+/*   ft_reset_image.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/05 19:47:54 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/07 03:00:01 by estruckm         ###   ########.fr       */
+/*   Created: 2023/03/08 02:44:26 by estruckm          #+#    #+#             */
+/*   Updated: 2023/03/08 19:14:34 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	ft_expose(t_point_lst *t_point, t_initialise_window *window)
+void ft_reset_image(t_stack*stack)
 {
-	// printf("hello");
-	// void *test;
-	// void *window_test;
+	{
+	int i;
+	int j;
 
-	// test = t_point;
-	// window_test = window;
-	// mlx_destroy_image(window->mlx, window->img_ptr);
-	ft_draw(t_point, window);
-	// mlx_destroy_image(window->mlx, window->img_ptr);
-	mlx_put_image_to_window(window->mlx, window->win, window->img_ptr, 0, 0);
-	return 0;
+	i = 0;
+
+	while (i < stack->stack_height)
+	{
+		j = 0;
+		while (j < stack->stack_height)
+		{
+			char *index = stack->data_ptr + (j * stack->size_line + i * stack->bpp / 8);
+			if (*(int *)index)
+				*(int *)index = 0;
+			j++;
+		}
+		i++;
+	}
+}
 }

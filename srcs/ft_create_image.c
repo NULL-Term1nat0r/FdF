@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fdf_print_list.c                                :+:      :+:    :+:   */
+/*   ft_create_image.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 03:01:05 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/08 19:18:15 by estruckm         ###   ########.fr       */
+/*   Created: 2023/03/07 21:05:33 by estruckm          #+#    #+#             */
+/*   Updated: 2023/03/08 19:21:30 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	ft_fdf_print_list(t_stack *stack)
+void ft_create_image(t_stack *stack)
 {
 	int i;
 	int j;
+	int z;
 
+	z = 0;
 	i = 0;
-	j = 0;
-	while(i < stack->rows)
+	printf("gesamt: %d\n", z);
+	while (i < stack->stack_height)
 	{
 		j = 0;
-		while(j < stack->coloums)
+		while (j < stack->stack_height)
 		{
-			printf("(%d|%d) ", stack->tmp_x[i][j], stack->tmp_y[i][j]);
+			char *index = stack->data_ptr + (j * stack->size_line + i * stack->bpp / 8);
+			if (*(int *)index)
+				ft_putpixel_to_image(stack, i, j, stack->color);
+			if (!*(int *)index)
+				ft_putpixel_to_image(stack, i, j, stack->color_background);
 			j++;
+			z++;
 		}
-		printf("\n\n");
 		i++;
 	}
+	printf("gesamt: %d\n", z);
 }

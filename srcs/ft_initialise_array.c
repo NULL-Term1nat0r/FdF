@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:37:19 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/05 19:23:31 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:16:07 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int ft_get_coloums(char **argv)
 	return (i);
 }
 
-int	**ft_malloc_2d_array(t_point_lst *stack, int ***array_adress)
+int	**ft_malloc_2d_array(t_stack *stack, int ***array_adress)
 {
 	int i;
 	int j;
@@ -80,12 +80,15 @@ int	**ft_malloc_2d_array(t_point_lst *stack, int ***array_adress)
 	return ((*array_adress));
 }
 
-void ft_initialise_array(t_point_lst *t_point, char **argv)
+void ft_initialise_array(t_stack *stack, char **argv)
 {
-	t_point->rows = ft_get_rows(argv);
-	t_point->coloums = ft_get_coloums(argv);
-	ft_malloc_2d_array(t_point, &t_point->data_x);
-	ft_malloc_2d_array(t_point, &t_point->data_y);
-	ft_malloc_2d_array(t_point, &t_point->data_z);
-	ft_malloc_2d_array(t_point, &t_point->data_color);
+	stack->rows = ft_get_rows(argv);
+	stack->coloums = ft_get_coloums(argv);
+	ft_malloc_2d_array(stack, &stack->data_x);
+	ft_malloc_2d_array(stack, &stack->data_y);
+	ft_malloc_2d_array(stack, &stack->data_z);
+	ft_malloc_2d_array(stack, &stack->tmp_x);
+	ft_malloc_2d_array(stack, &stack->tmp_y);
+	ft_malloc_2d_array(stack, &stack->tmp_z);
+	ft_malloc_2d_array(stack, &stack->data_color);
 }

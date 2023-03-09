@@ -6,13 +6,13 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:19:34 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/06 02:13:14 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/08 23:19:18 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void ft_draw_line_horizontal(t_point_lst *t_point, t_initialise_window *stack)
+void ft_draw_line_horizontal(t_stack *stack)
 {
 	double deltaX;
 	double deltaY;
@@ -23,17 +23,17 @@ void ft_draw_line_horizontal(t_point_lst *t_point, t_initialise_window *stack)
 	int j;
 
 	i = 0;
-	while (i < t_point->rows)
+	while (i < stack->rows)
 	{
 		j = 0;
-		while (j < t_point->coloums - 1)
+		while (j < stack->coloums - 1)
 		{
-			pixelX = t_point->data_x[i][j];
-			pixelY = t_point->data_y[i][j];
+			pixelX = stack->tmp_x[i][j];
+			pixelY = stack->tmp_y[i][j];
 
-			deltaX = t_point->data_x[i][j + 1] - t_point->data_x[i][j];
+			deltaX = stack->tmp_x[i][j + 1] - stack->tmp_x[i][j];
 			// deltaX = endX - beginX;
-			deltaY = t_point->data_y[i][j + 1] - t_point->data_y[i][j];
+			deltaY = stack->tmp_y[i][j + 1] - stack->tmp_y[i][j];
 			// deltaY = endY - beginY;
 			pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
 			deltaX /= pixels; // 1
@@ -42,8 +42,8 @@ void ft_draw_line_horizontal(t_point_lst *t_point, t_initialise_window *stack)
 			{
 				// ft_putpixel_to_image(stack, pixelX, pixelY);
 				// mlx_pixel_put(stack->mlx, stack->win, pixelX, pixelY, 0xFF0000);
-				if (pixelX < stack->window_width && pixelY < stack->window_height)
-					ft_putpixel_to_image(stack, pixelX, pixelY);
+				if (pixelX < stack->stack_width && pixelY < stack->stack_height)
+					ft_putpixel_to_image(stack, pixelX, pixelY, stack->color);
 				pixelX += deltaX;
 				pixelY += deltaY;
 				--pixels;
@@ -54,7 +54,7 @@ void ft_draw_line_horizontal(t_point_lst *t_point, t_initialise_window *stack)
 	}
 }
 
-void ft_draw_line_vertical(t_point_lst *t_point, t_initialise_window *stack)
+void ft_draw_line_vertical(t_stack *stack)
 {
 	double deltaX;
 	double deltaY;
@@ -65,17 +65,17 @@ void ft_draw_line_vertical(t_point_lst *t_point, t_initialise_window *stack)
 	int j;
 
 	i = 0;
-	while (i < t_point->coloums)
+	while (i < stack->coloums)
 	{
 		j = 0;
-		while (j < t_point->rows - 1)
+		while (j < stack->rows - 1)
 		{
-			pixelX = t_point->data_x[j][i];
-			pixelY = t_point->data_y[j][i];
+			pixelX = stack->tmp_x[j][i];
+			pixelY = stack->tmp_y[j][i];
 
-			deltaX = t_point->data_x[j + 1][i] - t_point->data_x[j][i];
+			deltaX = stack->tmp_x[j + 1][i] - stack->tmp_x[j][i];
 			// deltaX = endX - beginX;
-			deltaY = t_point->data_y[j + 1][i] - t_point->data_y[j][i];
+			deltaY = stack->tmp_y[j + 1][i] - stack->tmp_y[j][i];
 			// deltaY = endY - beginY;
 			pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
 			deltaX /= pixels; // 1
@@ -84,8 +84,8 @@ void ft_draw_line_vertical(t_point_lst *t_point, t_initialise_window *stack)
 			{
 				// mlx_pixel_put(stack->mlx, stack->win, pixelX, pixelY, 0xFF0000);
 				//ft_putpixel_to_image(stack, pixelX, pixelY);
-				if (pixelX < stack->window_width && pixelY < stack->window_height)
-					ft_putpixel_to_image(stack, pixelX, pixelY);
+				if (pixelX < stack->stack_width && pixelY < stack->stack_height)
+					ft_putpixel_to_image(stack, pixelX, pixelY, stack->color);
 				pixelX += deltaX;
 				pixelY += deltaY;
 				--pixels;
@@ -94,10 +94,14 @@ void ft_draw_line_vertical(t_point_lst *t_point, t_initialise_window *stack)
 		}
 		i++;
 	}
-}
+}	
 
-void ft_draw(t_point_lst *t_point, t_initialise_window *stack)
+void ft_draw(t_stack *stack, int i)
 {
-	ft_draw_line_horizontal(t_point, stack);
-	ft_draw_line_vertical(t_point, stack);
+	if (i == 0)
+		ft_get_coordinates(stack);
+	ft_draw_line_horizontal(stack);
+	ft_draw_line_vertical(stack);
+	printf("rows: %d\n", stack->rows);
+	printf("coloums: %d\n", stack->coloums);
 }

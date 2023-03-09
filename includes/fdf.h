@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:16:04 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/07 02:19:05 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:40:22 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define COLOR_PURPLE 0xA437FF
 
 # define KEYBOARD_ESC 53
+# define KEYBOARD_Z 122
 # define KEYBOARD_W 13
 # define KEYBOARD_B 11
 # define KEYBOARD_R 15
@@ -42,6 +43,10 @@
 # define KEYBOARD_Y 16
 # define KEYBOARD_C 8
 # define KEYBOARD_P 35
+
+# define KEYBOARD_PLUS 43
+# define KEYBOARD_MINUS 45
+
 # define KEYBOARD_ARROW_LEFT 123
 # define KEYBOARD_ARROW_RIGHT 124
 # define KEYBOARD_ARROW_UP 125
@@ -57,43 +62,59 @@
 # define KEYBOARD_ROT_LEFT 83
 # define KEYBOARD_ROT_RIGHT 82
 
-typedef struct s_point_lst
+# define RADIANT 0.016
+
+typedef struct s_stack
 {
 	int **data_x;
 	int **data_y;
 	int **data_z;
+	int **tmp_x;
+	int **tmp_y;
+	int **tmp_z;
 	int **data_color;
 	int rows;
 	int coloums;
-} t_point_lst;
 
-typedef struct s_initialise_window
-{
 	int s_x;
 	int s_y;
+	double angle;
+	int rotate_x;
+	int rotate_y;
+	int offset_x;
+	int offset_y;
+	int factor_x;
+	int factor_z;
+
+	int c_x;
+	int c_y;
+
 	int color;
+	int color_background;
 	int bpp;
 	int size_line;
 	int endian;
-	int window_width;
-	int window_height;
+	int stack_width;
+	int stack_height;
 	void *win;
 	void *mlx;
 	void *img_ptr;
 	char *data_ptr;
-	t_point_lst *t_point;
-} t_initialise_window;
+} t_stack;
 
 int		ft_fdf_atoi(char *argv);
-void 	ft_fdf_print_list(t_point_lst *t_point);
-void	ft_draw(t_point_lst *t_point, t_initialise_window *stack);
-void	ft_get_arguments(t_point_lst *t_point, char **argv);
-void	ft_get_coordinates(t_point_lst *t_point, t_initialise_window *window);
-void 	ft_initialise_array(t_point_lst *t_point, char **argv);
-int		ft_expose(t_point_lst *t_point, t_initialise_window *window);
-int		ft_keyboard_input(int keycode, t_initialise_window *window);
-int		*ft_putpixel_to_image(t_initialise_window *window, int x, int y);
-void display_control(t_initialise_window *init);
-
+void 	ft_fdf_print_list(t_stack *stack);
+void	ft_draw(t_stack *stack, int i);
+void	ft_get_arguments(t_stack *stack, char **argv);
+void	ft_get_coordinates(t_stack *stack);
+void 	ft_initialise_array(t_stack *stack, char **argv);
+int		ft_keyboard_input(int keycode, t_stack *stack);
+int		*ft_putpixel_to_image(t_stack *stack, int x, int y, int color);
+void	display_control(t_stack *init);
+void	ft_create_image(t_stack *stack);
+void	ft_reset_image(t_stack *stack);
+void	ft_rotate(t_stack *stack);
+void	ft_cy(t_stack *stack);
+void	ft_cx(t_stack *stack);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 02:17:03 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/07 02:17:30 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/08 23:06:29 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void		display_control(t_initialise_window *init)
+void		display_control(t_stack *init)
 {
 	mlx_string_put(init->mlx, init->win, 5, 125, COLOR_WHITE,
 	"Color_Basis: W = White, B = Blue, R = Red, G = Green");

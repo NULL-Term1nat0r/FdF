@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:15:41 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/05 19:25:36 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:18:02 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char **ft_get_array_argv(int fd)
 	return (s_array);
 }
 
-void ft_get_arguments(t_point_lst *t_point, char **argv)
+void ft_get_arguments(t_stack *stack, char **argv)
 {
 	int fd;
 	int i;
@@ -39,19 +39,20 @@ void ft_get_arguments(t_point_lst *t_point, char **argv)
 
 	i = 0;
 	z = 0;
-	ft_initialise_array(t_point, argv);
+	ft_initialise_array(stack, argv);
+	printf("test initialise");
 	fd = open(argv[1], O_RDONLY);
-	while (i < t_point->rows)
+	while (i < stack->rows)
 	{
 		s_array = ft_get_array_argv(fd);
 		z = 0;
 		j = 0;
-		while (j < t_point->coloums)
+		while (j < stack->coloums)
 		{
 			//fprintf(stderr, "i: %d j: %d\n", i, j);
-			t_point->data_x[i][j] = j;
-			t_point->data_y[i][j] = i;
-			t_point->data_z[i][j] = ft_fdf_atoi(s_array[j]);
+			stack->data_x[i][j] = j;
+			stack->data_y[i][j] = i;
+			stack->data_z[i][j] = ft_fdf_atoi(s_array[j]);
 			j++;
 		}
 		i++;
