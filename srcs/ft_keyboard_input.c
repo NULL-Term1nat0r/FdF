@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:30:15 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/09 01:39:21 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/13 01:58:23 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void ft_change_image(t_stack *stack, int color)
 {
 	stack->color = color;
 	ft_reset_image(stack);
-	ft_draw(stack, 0);
+	ft_draw(stack);
 	mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
 }
 
@@ -39,21 +39,21 @@ int ft_keyboard_input(int keycode, t_stack *stack)
 	{
 		stack->factor_z = stack->factor_z + 1;
 		ft_reset_image(stack);
-		ft_draw(stack, 0);
+		ft_draw(stack);
 		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
 	}
 		if (keycode == KEYBOARD_H)
 	{
-		stack->factor_z = stack->factor_z - 1;
+		stack->factor_z = stack->factor_z + 1;
 		ft_reset_image(stack);
-		ft_draw(stack, 0);
+		ft_draw(stack);
 		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
 	}
 		if (keycode == KEYBOARD_R)
 	{
 		stack->factor_x = stack->factor_x + 1;
 		ft_reset_image(stack);
-		ft_draw(stack, 0);
+		ft_draw(stack);
 		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
 	}
 	// 	if (keycode == KEYBOARD_R)
@@ -67,12 +67,8 @@ int ft_keyboard_input(int keycode, t_stack *stack)
 	{
 		// stack->angle = stack->angle + 1;
 		ft_reset_image(stack);
-		ft_cx(stack);
-		ft_cy(stack);
-		ft_rotate(stack);
-		ft_fdf_print_list(stack);
-		printf("\n\n\n");
-		ft_draw(stack, 1);
+		stack->angle += 2;
+		ft_draw(stack);
 		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
 	}
 	return 0;

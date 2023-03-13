@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:15:41 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/08 19:18:02 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:25:06 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void ft_get_arguments(t_stack *stack, char **argv)
 	i = 0;
 	z = 0;
 	ft_initialise_array(stack, argv);
-	printf("test initialise");
 	fd = open(argv[1], O_RDONLY);
 	while (i < stack->rows)
 	{

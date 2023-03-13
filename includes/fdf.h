@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:16:04 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/09 01:40:22 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/13 01:27:16 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <sys/time.h>
 # include "../minilibx_macos/mlx.h"
 
 # define COLOR_WHITE 0xFFFFFF
@@ -88,6 +89,10 @@ typedef struct s_stack
 
 	int c_x;
 	int c_y;
+	int wc_x;
+	int wc_y;
+
+	int				speed;
 
 	int color;
 	int color_background;
@@ -104,7 +109,7 @@ typedef struct s_stack
 
 int		ft_fdf_atoi(char *argv);
 void 	ft_fdf_print_list(t_stack *stack);
-void	ft_draw(t_stack *stack, int i);
+void	ft_draw(t_stack *stack);
 void	ft_get_arguments(t_stack *stack, char **argv);
 void	ft_get_coordinates(t_stack *stack);
 void 	ft_initialise_array(t_stack *stack, char **argv);

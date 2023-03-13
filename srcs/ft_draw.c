@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:19:34 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/08 23:19:18 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/13 00:54:18 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,11 @@ void ft_draw_line_vertical(t_stack *stack)
 		}
 		i++;
 	}
-}	
+}
 
-void ft_draw(t_stack *stack, int i)
+void ft_draw(t_stack *stack)
 {
-	if (i == 0)
-		ft_get_coordinates(stack);
+	ft_get_coordinates(stack);
 	ft_draw_line_horizontal(stack);
 	ft_draw_line_vertical(stack);
-	printf("rows: %d\n", stack->rows);
-	printf("coloums: %d\n", stack->coloums);
 }
