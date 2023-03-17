@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 10:23:17 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/13 01:47:33 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/17 04:15:46 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,22 @@ void ft_initialize_window(t_stack *stack)
 	stack->stack_height = 1500;
 	stack->s_x = 750;
 	stack->s_y = 750;
-	// stack->c_x = 500;
-	// stack->c_y = 500;
 	stack->angle = 30;
 	stack->rotate_x = 1;
 	stack->rotate_y = 1;
 	stack->offset_x = 10;
 	stack->offset_y = 5;
-	stack->factor_x = 10;
-	stack->factor_z = 3;
+	stack->factor_x = 1;
+	stack->factor_z = 1;
 	stack->color = 0xFF0000;
 	stack->color_background = 0xFF00FF;
 	stack->mlx = mlx_init();
 	stack->win = mlx_new_window(stack->mlx, stack->stack_width, stack->stack_height, "My Window");
 	stack->img_ptr =mlx_new_image(stack->mlx, stack->stack_width, stack->stack_height);
     stack->data_ptr = mlx_get_data_addr(stack->img_ptr, &stack->bpp, &stack->size_line, &stack->endian);
+	host_get_clock_service(mach_host_self(), REALTIME_CLOCK, &stack->clock_service);
+	clock_get_time(stack->clock_service, &stack->start_time);
+	stack->last_update_time = 0.0;
 }
 int ft_get_color(int red, int green, int blue, int alpha)
 {
@@ -79,18 +80,20 @@ long	millis(struct timeval time)
 
 int	engine(t_stack *stack)
 {
-	struct timeval			current_time;
-	static struct timeval	time_stamp;
+	double	time;
+	//struct timeval			current_time;
+	//static struct timeval	time_stamp;
 
-	gettimeofday(&current_time, NULL);
-	if (millis(current_time) - millis(time_stamp) > 16)
+	//gettimeofday(&current_time, NULL);
+	time = ft_gettime(stack);
+	if (time - stack->last_update_time > 0.016)
 	{
 		ft_memset((stack->data_ptr) , 0, 9000000);
-		// mlx_clear_window();
 		ft_draw(stack);
 		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
-		stack->angle -= 1;
-		gettimeofday(&time_stamp, NULL);
+		display_control(stack);
+		stack->angle -= 0.5;
+		stack->last_update_time = time;
 	}
 
 	return (0);
@@ -98,32 +101,23 @@ int	engine(t_stack *stack)
 
 int	main(int argc, char **argv)
 {
-	t_stack stack;
+	t_stack *stack;
 
-	// stack = malloc(sizeof(t_stack));
-	// if (!stack)
-	// 	printf("Malloc error.");
-	if (argc > 2) {
-		printf("Error");
-		return (0);
+	stack = malloc(sizeof(t_stack));
+	if (!stack)
+		ft_putendl_fd("Malloc Error!", 2);
+	if (argc != 2)
+	{
+		ft_putendl_fd("Error! Stupid, stupid, stupid! Provide two valid arguments like './fdf test.fdf' for example", 2);
+		exit(0);
 	}
+	ft_input(argv[1]);
+	ft_get_arguments(stack, argv);
+	ft_initialize_window(stack);
+	mlx_key_hook(stack->win, ft_keyboard_input, stack);
+	mlx_loop_hook(stack->mlx, engine, stack);
 
-	ft_initialize_window(&stack);
-	// display_control(&stack);
-
-	ft_get_arguments(&stack, argv);
-	mlx_key_hook(stack.win, ft_keyboard_input, &stack);
-	mlx_loop_hook(stack.mlx, engine, &stack);
-	// while (1)
-	// {
-	// 	ft_draw(stack);
-	// 	mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
-	// 	stack->angle += 1;
-	// 	sleep(1);
-	// }
-	// ft_fdf_print_list(stack);
-	// mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
-	mlx_loop(stack.mlx);
+	mlx_loop(stack->mlx);
 	return (0);
 }
 // minilibx files https://github.com/gcamerli/minilibx/tree/master/src

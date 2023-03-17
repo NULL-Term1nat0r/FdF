@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:55:42 by gemartin          #+#    #+#             */
-/*   Updated: 2023/02/25 03:07:21 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/17 04:13:42 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char	*ft_strchr_gnl(char *s, int c)
 char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
+	size_t 	strlen;
 	char	*res;
 
 	i = 0;
@@ -86,7 +87,8 @@ char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
 	res = malloc(sizeof(char) * (len + 1));
 	if (!res)
 		return (NULL);
-	while (start < ft_strlen_gnl(s) && i < len && s[start])
+	strlen = ft_strlen_gnl(s);
+	while (start < strlen && i < len && s[start])
 		res[i++] = s[start++];
 	res[i] = '\0';
 	return (res);

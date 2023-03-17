@@ -6,14 +6,14 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:53:00 by gemartin          #+#    #+#             */
-/*   Updated: 2023/03/04 17:19:59 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/17 04:07:11 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# define BUFFER_SIZE 42
+# define BUFFER_SIZE 18000
 # include<unistd.h>
 # include<stdio.h>
 # include<stdlib.h>

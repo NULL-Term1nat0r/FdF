@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:16:04 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/13 01:27:16 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/17 02:58:54 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 # include "../libft/libft.h"
 # include "../Get_next_line/get_next_line_bonus.h"
-# include "../push_swap/push_swap.h"
 # include <math.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/time.h>
+# include <mach/mach.h>
+# include <mach/clock.h>
 # include "../minilibx_macos/mlx.h"
 
 # define COLOR_WHITE 0xFFFFFF
@@ -105,6 +106,10 @@ typedef struct s_stack
 	void *mlx;
 	void *img_ptr;
 	char *data_ptr;
+
+	clock_serv_t	clock_service;
+	mach_timespec_t	start_time;
+	double			last_update_time;
 } t_stack;
 
 int		ft_fdf_atoi(char *argv);
@@ -114,12 +119,15 @@ void	ft_get_arguments(t_stack *stack, char **argv);
 void	ft_get_coordinates(t_stack *stack);
 void 	ft_initialise_array(t_stack *stack, char **argv);
 int		ft_keyboard_input(int keycode, t_stack *stack);
-int		*ft_putpixel_to_image(t_stack *stack, int x, int y, int color);
+void		ft_putpixel_to_image(t_stack *stack, int x, int y, int color);
 void	display_control(t_stack *init);
 void	ft_create_image(t_stack *stack);
 void	ft_reset_image(t_stack *stack);
 void	ft_rotate(t_stack *stack);
 void	ft_cy(t_stack *stack);
 void	ft_cx(t_stack *stack);
+
+void	ft_input(char *argv);
+double	ft_gettime(t_stack *stack);
 
 #endif

@@ -6,11 +6,14 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:37:19 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/08 19:16:07 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/17 03:29:45 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+
+char	*hax_get_next_line(int fd);
 
 int ft_get_rows(char **argv)
 {
@@ -22,6 +25,12 @@ int ft_get_rows(char **argv)
 	while ((s = ft_get_next_line(fd)) != NULL)
 	{
 		i++;
+	}
+	if (i == 1)
+	{
+		ft_putendl_fd("Error! Provide a proper 2D Map instead of a single line you retard!", 2);
+		close(fd);
+		exit(1);
 	}
 	close(fd);
 	return (i);
@@ -61,13 +70,13 @@ int	**ft_malloc_2d_array(t_stack *stack, int ***array_adress)
 	j = 0;
 	*array_adress = (int **)malloc(stack->rows * sizeof(int *));
 	if (*array_adress == NULL)
-		printf("Error: could not allocate memory for row pointers\n");
+		ft_putendl_fd("Error: could not allocate memory for row pointers\n", 2);
 	while (i < stack->rows)
 	{
 		(*array_adress)[i] = (int*) malloc(stack->coloums * sizeof(int));
 		if ((*array_adress)[i] == NULL)
 		{
-			printf("Error: could not allocate memory for row %d\n", i);
+			ft_putendl_fd("Error: could not allocate memory for row %d\n", 2);
 			while ( j < i)
 			{
 				free((*array_adress)[j++]);
@@ -82,8 +91,20 @@ int	**ft_malloc_2d_array(t_stack *stack, int ***array_adress)
 
 void ft_initialise_array(t_stack *stack, char **argv)
 {
+	printf("ft_get_rows\n");
 	stack->rows = ft_get_rows(argv);
+	printf("ft_get_columns\n");
 	stack->coloums = ft_get_coloums(argv);
+	if (stack->coloums == 0 || stack->rows == 0)
+	{
+		ft_putendl_fd("Error! Provide a proper 2D Map instead of an empty one you retard!", 2);
+		exit(1);
+	}
+	if (stack->coloums == 1)
+	{
+		ft_putendl_fd("Error! You are gay ! Beside that provide a proper 2D Map instead of this crap you retard!", 2);
+		exit(1);
+	}
 	ft_malloc_2d_array(stack, &stack->data_x);
 	ft_malloc_2d_array(stack, &stack->data_y);
 	ft_malloc_2d_array(stack, &stack->data_z);

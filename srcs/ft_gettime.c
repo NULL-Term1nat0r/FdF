@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putpixel_to_image.c                             :+:      :+:    :+:   */
+/*   ft_gettime.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/05 20:51:16 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/16 22:35:00 by estruckm         ###   ########.fr       */
+/*   Created: 2023/03/16 22:43:12 by estruckm          #+#    #+#             */
+/*   Updated: 2023/03/17 03:01:21 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void ft_putpixel_to_image(t_stack *stack, int x, int y, int color)
+double	ft_gettime(t_stack *stack)
 {
-	char *index;
+	mach_timespec_t	current_time;
 
-	if (x >= 0 && y >= 0 && x< stack->stack_width && y < stack->stack_height)
-	{
-		index = stack->data_ptr + (y * stack->size_line + x * stack->bpp / 8);
-		*(int *)index = color;
-	}
+	clock_get_time(stack->clock_service, &current_time);
+	return ((current_time.tv_sec - stack->start_time.tv_sec)
+		+ (current_time.tv_nsec - stack->start_time.tv_nsec) / 1000000000.0);
 }

@@ -6,7 +6,7 @@
 #    By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 22:55:36 by estruckm          #+#    #+#              #
-#    Updated: 2023/03/09 00:06:33 by estruckm         ###   ########.fr        #
+#    Updated: 2023/03/17 04:17:15 by estruckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,16 @@ SRCS =	main.c \
 		ft_create_image.c \
 		ft_reset_image.c \
 		ft_rotate.c \
+		ft_input.c \
+		ft_gettime.c \
 
 CC = gcc
-CCFLAG = -Wall -Werror -Wextra
+CCFLAG = -Wall -Werror -Wextra -Ofast
 # -fsanitize=address
+#-g -fprofile-instr-generate -fcoverage-mapping
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
-LIB = -C ./libft/
+LIB = -C ./libft
 GET = -C ./Get_next_line/
-P_S = -C ./push_swap
 
 SUCCESS_COLOR = \033[32m
 
@@ -41,24 +43,21 @@ D_SRCS = ./srcs/
 all : $(NAME)
 
 %.o:$(D_SRCS)%.c
-	$(CC) $(CCFLAG) -I ./push_swap -I ./Get_next_line -I ./libft -I /includes -o $@ -c $<
+	$(CC) $(CCFLAG) -o $@ -c $<
 
 $(NAME) : $(OBJECT)
 	make $(LIB)
 	make $(GET)
-	make $(P_S)
-	$(CC) $(CCFLAG) $(MLXFLAGS) $(OBJECT) push_swap/push_swap.a -lft Get_next_line/get_next_line_bonus.a -lft -L ./libft -lft -o $(NAME) -g -fsanitize=address
+	$(CC) $(CCFLAG) $(MLXFLAGS) $(OBJECT) ./Get_next_line/get_next_line_bonus.a ./libft/libft.a -o $(NAME) -g -fsanitize=address
 	echo "$(SUCCESS_COLOR)$(NAME) - Compiled with Success"
 
 clean :
-	@make clean $(P_S)
 	@make clean $(LIB)
 	@make clean $(GET)
 	@echo "$(SUCCESS_COLOR)$(NAME) - Cleaned with Success"
 	@/bin/rm -rf $(OBJECT)
 
 fclean : clean
-	@make fclean $(P_S)
 	@make fclean $(LIB)
 	@make fclean $(GET)
 	@rm -rf ./$(NAME)
@@ -67,3 +66,5 @@ fclean : clean
 re : fclean all
 
 .PHONY: all clean fclean re
+
+#Get_next_line/get_next_line_bonus.a

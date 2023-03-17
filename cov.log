@@ -1,0 +1,1538 @@
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/Get_next_line/ft_clean_storage.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft-clean_storage.c                                 :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/02/25 18:57:31 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/02/25 18:57:42 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "get_next_line_bonus.h"
+   14|       |
+   15|       |char	*clean_storage(char *storage)
+   16|  1.50k|{
+   17|  1.50k|	char	*new_storage;
+   18|  1.50k|	char	*ptr;
+   19|  1.50k|	int		len;
+   20|  1.50k|
+   21|  1.50k|	ptr = ft_strchr_gnl(storage, '\n');
+   22|  1.50k|	if (ptr == NULL)
+   23|  1.50k|	{
+   24|      0|		new_storage = NULL;
+   25|      0|		return (ft_free(&storage));
+   26|      0|	}
+   27|  1.50k|	else
+   28|  1.50k|		len = (ptr - storage) + 1;
+   29|  1.50k|	if (storage[len] == 0)
+   30|      6|		return (ft_free(&storage));
+   31|  1.49k|	new_storage = ft_substr_gnl(storage, len, ft_strlen_gnl(storage) - len);
+   32|  1.49k|	ft_free(&storage);
+   33|  1.49k|	if (new_storage == 0)
+   34|      0|		return (NULL);
+   35|  1.49k|	return (new_storage);
+   36|  1.49k|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/Get_next_line/ft_free.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_free.c                                          :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2022/03/02 12:42:12 by gemartin          #+#    #+#             */
+    9|       |/*   Updated: 2023/02/25 18:57:12 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "get_next_line_bonus.h"
+   14|       |
+   15|       |char	*ft_free(char **str)
+   16|  1.50k|{
+   17|  1.50k|	free(*str);
+   18|  1.50k|	*str = NULL;
+   19|  1.50k|	return (NULL);
+   20|  1.50k|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/Get_next_line/ft_new_line.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_read_file.c                                     :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/02/25 18:58:22 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/02/25 18:58:44 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "get_next_line_bonus.h"
+   14|       |
+   15|       |char	*new_line(char *storage)
+   16|  1.50k|{
+   17|  1.50k|	char	*line;
+   18|  1.50k|	char	*ptr;
+   19|  1.50k|	int		len;
+   20|  1.50k|
+   21|  1.50k|	ptr = ft_strchr_gnl(storage, '\n');
+   22|  1.50k|	len = (ptr - storage) + 1;
+   23|  1.50k|	line = ft_substr_gnl(storage, 0, len);
+   24|  1.50k|	if (line == 0)
+   25|      0|		return (NULL);
+   26|  1.50k|	return (line);
+   27|  1.50k|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/Get_next_line/ft_read_file.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_read_file.c                                     :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/02/25 18:59:41 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/02/25 18:59:51 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "get_next_line_bonus.h"
+   14|       |
+   15|       |char	*read_file(int fd, char *storage)
+   16|  1.50k|{
+   17|  1.50k|	int		rid;
+   18|  1.50k|	char	*buffer;
+   19|  1.50k|
+   20|  1.50k|	rid = 1;
+   21|  1.50k|	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+   22|  1.50k|	if (buffer == 0)
+   23|      0|		return (ft_free(&storage));
+   24|  1.50k|	buffer[0] = '\0';
+   25|  9.57k|	while (rid > 0 && ft_strchr_gnl(buffer, '\n') == 0)
+   26|  8.06k|	{
+   27|  8.06k|		rid = read (fd, buffer, BUFFER_SIZE);
+   28|  8.06k|		if (rid > 0)
+   29|  8.06k|		{
+   30|  8.06k|			buffer[rid] = '\0';
+   31|  8.06k|			storage = ft_strjoin_gnl(storage, buffer);
+   32|  8.06k|		}
+   33|  8.06k|	}
+   34|  1.50k|	free(buffer);
+   35|  1.50k|	if (rid == -1)
+   36|      0|		return (ft_free(&storage));
+   37|  1.50k|	return (storage);
+   38|  1.50k|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/Get_next_line/get_next_line_bonus.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2022/03/02 12:42:12 by gemartin          #+#    #+#             */
+    9|       |/*   Updated: 2023/02/25 18:59:59 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "get_next_line_bonus.h"
+   14|       |
+   15|       |char	*ft_get_next_line(int fd)
+   16|  1.50k|{
+   17|  1.50k|	static char	*storage[OPEN_MAX];
+   18|  1.50k|	char		*line;
+   19|  1.50k|
+   20|  1.50k|	if (fd < 0)
+   21|      0|		return (NULL);
+   22|  1.50k|	if ((storage[fd] != 0 && ft_strchr_gnl(storage[fd], '\n') == 0)
+   23|  1.50k|		||storage[fd] == 0)
+   24|  1.50k|		storage[fd] = read_file(fd, storage[fd]);
+   25|  1.50k|	if (storage[fd] == 0)
+   26|      2|		return (NULL);
+   27|  1.50k|	line = new_line(storage[fd]);
+   28|  1.50k|	if (line == 0)
+   29|      0|		return (ft_free(&storage[fd]));
+   30|  1.50k|	storage[fd] = clean_storage(storage[fd]);
+   31|  1.50k|	return (line);
+   32|  1.50k|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/Get_next_line/get_next_line_bonus.h:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2022/03/02 12:53:00 by gemartin          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/17 02:55:55 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#ifndef GET_NEXT_LINE_BONUS_H
+   14|       |# define GET_NEXT_LINE_BONUS_H
+   15|       |
+   16|  9.57k|# define BUFFER_SIZE 1042
+   17|       |# include<unistd.h>
+   18|       |# include<stdio.h>
+   19|       |# include<stdlib.h>
+   20|       |# include<fcntl.h>
+   21|       |# include<limits.h>
+   22|       |
+   23|       |size_t	ft_strlcpy_gnl(char *dst, char *src, size_t dstsize);
+   24|       |size_t	ft_strlen_gnl(char *s);
+   25|       |char	*ft_strjoin_gnl(char *s1, char *s2);
+   26|       |char	*ft_strdup_gnl(char *s1);
+   27|       |char	*ft_strchr_gnl(char *s, int c);
+   28|       |char	*ft_substr_gnl(char *s, unsigned int start, size_t len);
+   29|       |char	*ft_get_next_line(int fd);
+   30|       |char	*ft_free(char **str);
+   31|       |
+   32|       |char	*clean_storage(char *storage);
+   33|       |char	*ft_free(char **str);
+   34|       |char	*new_line(char *storage);
+   35|       |char	*read_file(int fd, char *storage);
+   36|       |#endif
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/Get_next_line/get_next_line_utils_bonus.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2022/03/02 12:55:42 by gemartin          #+#    #+#             */
+    9|       |/*   Updated: 2023/02/25 03:07:21 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "get_next_line_bonus.h"
+   14|       |
+   15|       |char	*ft_strjoin_gnl(char *s1, char *s2)
+   16|  8.06k|{
+   17|  8.06k|	char	*str;
+   18|  8.06k|	size_t	i;
+   19|  8.06k|	size_t	c;
+   20|  8.06k|
+   21|  8.06k|	if (!s1)
+   22|      6|	{
+   23|      6|		s1 = malloc(sizeof(char) + 1);
+   24|      6|		if (!s1)
+   25|      0|			return (0);
+   26|      6|		s1[0] = 0;
+   27|      6|	}
+   28|  8.06k|	str = (char *)malloc(sizeof(char) * ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1);
+   29|  8.06k|	if (!str)
+   30|      0|		return (ft_free(&s1));
+   31|  8.06k|	i = -1;
+   32|  22.4M|	while (s1[++i])
+   33|  22.4M|		str[i] = s1[i];
+   34|  8.06k|	c = -1;
+   35|  8.41M|	while (s2[++c])
+   36|  8.40M|		str[i + c] = s2[c];
+   37|  8.06k|	str[i + c] = '\0';
+   38|  8.06k|	free(s1);
+   39|  8.06k|	return (str);
+   40|  8.06k|}
+   41|       |
+   42|       |size_t	ft_strlen_gnl(char *s)
+   43|  9.18M|{
+   44|  9.18M|	size_t	i;
+   45|  9.18M|
+   46|  9.18M|	i = 0;
+   47|  56.2G|	while (s[i] != '\0')
+   48|  56.2G|		i++;
+   49|  9.18M|	return (i);
+   50|  9.18M|}
+   51|       |
+   52|       |char	*ft_strchr_gnl(char *s, int c)
+   53|  14.0k|{
+   54|  14.0k|	int	i;
+   55|  14.0k|
+   56|  14.0k|	i = 0;
+   57|  25.2M|	while (s[i] != '\0')
+   58|  25.2M|	{
+   59|  25.2M|		if (s[i] == (char)c)
+   60|  4.50k|			return (&((char *)s)[i]);
+   61|  25.2M|		i++;
+   62|  25.2M|	}
+   63|  14.0k|	if ((char)c == '\0')
+   64|      0|		return (&((char *)s)[i]);
+   65|  9.56k|	return (0);
+   66|  9.56k|}
+   67|       |
+   68|       |char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
+   69|  2.99k|{
+   70|  2.99k|	size_t	i;
+                
+   71|  2.99k|	char	*res;
+   72|  2.99k|
+   73|  2.99k|	i = 0;
+   74|  2.99k|	if (!s)
+   75|      0|		return (0);
+   76|  2.99k|	if (start > ft_strlen_gnl(s))
+   77|      0|	{
+   78|      0|		res = malloc(sizeof(char) * (1));
+   79|      0|		if (!res)
+   80|      0|			return (NULL);
+   81|      0|		res[0] = '\0';
+   82|      0|		return (res);
+   83|      0|	}
+   84|  2.99k|	if (ft_strlen_gnl(s) - start < len)
+   85|      0|		len = ft_strlen_gnl(s) - start;
+   86|  2.99k|	res = malloc(sizeof(char) * (len + 1));
+   87|  2.99k|	if (!res)
+   88|      0|		return (NULL);
+   89|  9.16M|	while (start < ft_strlen_gnl(s) && i < len && s[start])
+   90|  9.16M|		res[i++] = s[start++];
+   91|  2.99k|	res[i] = '\0';
+   92|  2.99k|	return (res);
+   93|  2.99k|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/includes/fdf.h:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   fdf.h                                              :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2018/01/10 11:16:04 by nristorc          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/17 02:58:54 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#ifndef FDF_H
+   14|       |# define FDF_H
+   15|       |
+   16|       |# include "../libft/libft.h"
+   17|       |# include "../Get_next_line/get_next_line_bonus.h"
+   18|       |# include <math.h>
+   19|       |# include <stdlib.h>
+   20|       |# include <fcntl.h>
+   21|       |# include <unistd.h>
+   22|       |# include <stdio.h>
+   23|       |# include <sys/time.h>
+   24|       |# include <mach/mach.h>
+   25|       |# include <mach/clock.h>
+   26|       |# include "../minilibx_macos/mlx.h"
+   27|       |
+   28|      0|# define COLOR_WHITE 0xFFFFFF
+   29|       |# define COLOR_RED  0xFF0000
+   30|      0|# define COLOR_BLUE 0x0000FF
+   31|      0|# define COLOR_GREEN 0x00FF00
+   32|       |# define COLOR_YELLOW 0xFFFF00
+   33|       |# define COLOR_PINK 0xFF00FF
+   34|      0|# define COLOR_CYAN 0x00FFFF
+   35|       |# define COLOR_ORANGE 0xFF90FF
+   36|       |# define COLOR_PURPLE 0xA437FF
+   37|       |
+   38|      1|# define KEYBOARD_ESC 53
+   39|       |# define KEYBOARD_Z 122
+   40|       |# define KEYBOARD_W 13
+   41|      0|# define KEYBOARD_B 11
+   42|      0|# define KEYBOARD_R 15
+   43|      0|# define KEYBOARD_G 5
+   44|      0|# define KEYBOARD_H 4
+   45|       |# define KEYBOARD_Y 16
+   46|      0|# define KEYBOARD_C 8
+   47|      0|# define KEYBOARD_P 35
+   48|       |
+   49|      0|# define KEYBOARD_PLUS 43
+   50|       |# define KEYBOARD_MINUS 45
+   51|       |
+   52|       |# define KEYBOARD_ARROW_LEFT 123
+   53|       |# define KEYBOARD_ARROW_RIGHT 124
+   54|       |# define KEYBOARD_ARROW_UP 125
+   55|       |# define KEYBOARD_ARROW_DOWN 126
+   56|       |# define KEYBOARD_ZOOM_IN 69
+   57|       |# define KEYBOARD_ZOOM_OUT 78
+   58|       |# define KEYBOARD_DEPTH_UP 47
+   59|       |# define KEYBOARD_DEPTH_DOWN 43
+   60|       |# define KEYBOARD_INC_LENGHT 86
+   61|       |# define KEYBOARD_DEC_LENGHT 88
+   62|       |# define KEYBOARD_INC_HEIGHT 91
+   63|       |# define KEYBOARD_DEC_HEIGHT 84
+   64|       |# define KEYBOARD_ROT_LEFT 83
+   65|       |# define KEYBOARD_ROT_RIGHT 82
+   66|       |
+   67|       |# define RADIANT 0.016
+   68|       |
+   69|       |typedef struct s_stack
+   70|       |{
+   71|       |	int **data_x;
+   72|       |	int **data_y;
+   73|       |	int **data_z;
+   74|       |	int **tmp_x;
+   75|       |	int **tmp_y;
+   76|       |	int **tmp_z;
+   77|       |	int **data_color;
+   78|       |	int rows;
+   79|       |	int coloums;
+   80|       |
+   81|       |	int s_x;
+   82|       |	int s_y;
+   83|       |	double angle;
+   84|       |	int rotate_x;
+   85|       |	int rotate_y;
+   86|       |	int offset_x;
+   87|       |	int offset_y;
+   88|       |	int factor_x;
+   89|       |	int factor_z;
+   90|       |
+   91|       |	int c_x;
+   92|       |	int c_y;
+   93|       |	int wc_x;
+   94|       |	int wc_y;
+   95|       |
+   96|       |	int				speed;
+   97|       |
+   98|       |	int color;
+   99|       |	int color_background;
+  100|       |	int bpp;
+  101|       |	int size_line;
+  102|       |	int endian;
+  103|       |	int stack_width;
+  104|       |	int stack_height;
+  105|       |	void *win;
+  106|       |	void *mlx;
+  107|       |	void *img_ptr;
+  108|       |	char *data_ptr;
+  109|       |
+  110|       |	clock_serv_t	clock_service;
+  111|       |	mach_timespec_t	start_time;
+  112|       |	double			last_update_time;
+  113|       |} t_stack;
+  114|       |
+  115|       |int		ft_fdf_atoi(char *argv);
+  116|       |void 	ft_fdf_print_list(t_stack *stack);
+  117|       |void	ft_draw(t_stack *stack);
+  118|       |void	ft_get_arguments(t_stack *stack, char **argv);
+  119|       |void	ft_get_coordinates(t_stack *stack);
+  120|       |void 	ft_initialise_array(t_stack *stack, char **argv);
+  121|       |int		ft_keyboard_input(int keycode, t_stack *stack);
+  122|       |void		ft_putpixel_to_image(t_stack *stack, int x, int y, int color);
+  123|       |void	display_control(t_stack *init);
+  124|       |void	ft_create_image(t_stack *stack);
+  125|       |void	ft_reset_image(t_stack *stack);
+  126|       |void	ft_rotate(t_stack *stack);
+  127|       |void	ft_cy(t_stack *stack);
+  128|       |void	ft_cx(t_stack *stack);
+  129|       |
+  130|       |void	ft_input(char *argv);
+  131|       |double	ft_gettime(t_stack *stack);
+  132|       |
+  133|       |#endif
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_create_image.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_create_image.c                                  :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/07 21:05:33 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/08 19:21:30 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void ft_create_image(t_stack *stack)
+   16|      0|{
+   17|      0|	int i;
+   18|      0|	int j;
+   19|      0|	int z;
+   20|      0|
+   21|      0|	z = 0;
+   22|      0|	i = 0;
+   23|      0|	printf("gesamt: %d\n", z);
+   24|      0|	while (i < stack->stack_height)
+   25|      0|	{
+   26|      0|		j = 0;
+   27|      0|		while (j < stack->stack_height)
+   28|      0|		{
+   29|      0|			char *index = stack->data_ptr + (j * stack->size_line + i * stack->bpp / 8);
+   30|      0|			if (*(int *)index)
+   31|      0|				ft_putpixel_to_image(stack, i, j, stack->color);
+   32|      0|			if (!*(int *)index)
+   33|      0|				ft_putpixel_to_image(stack, i, j, stack->color_background);
+   34|      0|			j++;
+   35|      0|			z++;
+   36|      0|		}
+   37|      0|		i++;
+   38|      0|	}
+   39|      0|	printf("gesamt: %d\n", z);
+   40|      0|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_draw.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_draw.c                                          :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/05 18:19:34 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/16 22:33:07 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void ft_draw_line_horizontal(t_stack *stack, int i, int j)
+   16|   249k|{
+   17|   249k|	double delta_x;
+   18|   249k|	double delta_y;
+   19|   249k|	double pixel_x;
+   20|   249k|	double pixel_y;
+   21|   249k|	int pixels;
+   22|   249k|
+   23|   249k|	pixel_x = stack->tmp_x[i][j];
+   24|   249k|	pixel_y = stack->tmp_y[i][j];
+   25|   249k|	delta_x = stack->tmp_x[i][j + 1] - stack->tmp_x[i][j];
+   26|   249k|	delta_y = stack->tmp_y[i][j + 1] - stack->tmp_y[i][j];
+   27|   249k|	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+   28|   249k|	delta_x /= pixels; // 1
+   29|   249k| 	delta_y /= pixels; // 0
+   30|  1.02M|	while (pixels)
+   31|   775k|	{
+   32|   775k|		ft_putpixel_to_image(stack, pixel_x, pixel_y, stack->color);
+   33|   775k|		pixel_x += delta_x;
+   34|   775k|		pixel_y += delta_y;
+   35|   775k|		--pixels;
+   36|   775k|	}
+   37|   249k|}
+   38|       |
+   39|       |void ft_draw_line_vertical(t_stack *stack, int i, int j)
+   40|   249k|{
+   41|   249k|	double delta_x;
+   42|   249k|	double delta_y;
+   43|   249k|	double pixel_x;
+   44|   249k|	double pixel_y;
+   45|   249k|	int pixels;
+   46|   249k|
+   47|   249k|	pixel_x = stack->tmp_x[j][i];
+   48|   249k|	pixel_y = stack->tmp_y[j][i];
+   49|   249k|	delta_x = stack->tmp_x[j + 1][i] - stack->tmp_x[j][i];
+   50|   249k|	delta_y = stack->tmp_y[j + 1][i] - stack->tmp_y[j][i];
+   51|   249k|	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+   52|   249k|	delta_x /= pixels; // 1
+   53|   249k|	delta_y /= pixels; // 0
+   54|  1.02M|	while (pixels)
+   55|   774k|	{
+   56|   774k|		if (pixel_x >= 0 && pixel_y >= 0)
+   57|   774k|			ft_putpixel_to_image(stack, pixel_x, pixel_y, stack->color);
+   58|   774k|		pixel_x += delta_x;
+   59|   774k|		pixel_y += delta_y;
+   60|   774k|		--pixels;
+   61|   774k|	}
+   62|   249k|}
+   63|       |
+   64|       |void ft_draw_line_horizontal_main(t_stack *stack)
+   65|      1|{
+   66|      1|	int i;
+   67|      1|	int j;
+   68|      1|
+   69|      1|	i = 0;
+   70|    501|	while (i < stack->rows)
+   71|    500|	{
+   72|    500|		j = 0;
+   73|   250k|		while (j < stack->coloums - 1)
+   74|   249k|		{
+   75|   249k|			ft_draw_line_horizontal(stack,i ,j);
+   76|   249k|			j++;
+   77|   249k|		}
+   78|    500|		i++;
+   79|    500|	}
+   80|      1|}
+   81|       |
+   82|       |void ft_draw_line_vertical_main(t_stack *stack)
+   83|      1|{
+   84|      1|	int i;
+   85|      1|	int j;
+   86|      1|
+   87|      1|	i = 0;
+   88|    501|	while (i < stack->coloums)
+   89|    500|	{
+   90|    500|		j = 0;
+   91|   250k|		while (j < stack->rows - 1)
+   92|   249k|		{
+   93|   249k|			ft_draw_line_vertical(stack,i ,j);
+   94|   249k|			j++;
+   95|   249k|		}
+   96|    500|		i++;
+   97|    500|	}
+   98|      1|}
+   99|       |
+  100|       |void ft_draw(t_stack *stack)
+  101|      1|{
+  102|      1|	ft_get_coordinates(stack);
+  103|      1|	ft_draw_line_horizontal_main(stack);
+  104|      1|	ft_draw_line_vertical_main(stack);
+  105|      1|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_fdf_atoi.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_fdf_atoi.c                                      :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/02/27 02:43:02 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/01 01:39:01 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |int	ft_fdf_atoi(char *argv)
+   16|   250k|{
+   17|   250k|	int				sign;
+   18|   250k|	long	ret;
+   19|   250k|
+   20|   250k|	ret = 0;
+   21|   250k|	sign = 1;
+   22|   250k|	while (*argv == 32 || (*argv >= 9 && *argv <= 13))
+   23|      0|		argv++;
+   24|   250k|	if (*argv == 45)
+   25|      0|		sign = -1;
+   26|   250k|	if (*argv == 45 || *argv == 43)
+   27|      0|		argv++;
+   28|   551k|	while (*argv >= 48 && *argv <= 57 )
+   29|   301k|	{
+   30|   301k|		ret = (ret * 10) + (*argv++ - 48);
+   31|   301k|	}
+   32|   250k|	return ((int)ret * sign);
+   33|   250k|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_fdf_print_list.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_fdf_print_list.c                                :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/02/27 03:01:05 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/08 19:18:15 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void	ft_fdf_print_list(t_stack *stack)
+   16|      0|{
+   17|      0|	int i;
+   18|      0|	int j;
+   19|      0|
+   20|      0|	i = 0;
+   21|      0|	j = 0;
+   22|      0|	while(i < stack->rows)
+   23|      0|	{
+   24|      0|		j = 0;
+   25|      0|		while(j < stack->coloums)
+   26|      0|		{
+   27|      0|			printf("(%d|%d) ", stack->tmp_x[i][j], stack->tmp_y[i][j]);
+   28|      0|			j++;
+   29|      0|		}
+   30|      0|		printf("\n\n");
+   31|      0|		i++;
+   32|      0|	}
+   33|      0|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_get_arguments.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_get_arguments.c                                 :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/05 18:15:41 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/17 03:29:22 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |char	*hax_get_next_line(int fd);
+   16|       |
+   17|       |char **ft_get_array_argv(int fd)
+   18|    500|{
+   19|    500|	char *s;
+   20|    500|	char **s_array;
+   21|    500|	int z;
+   22|    500|
+   23|    500|	z = 0;
+   24|    500|
+   25|    500|	s = ft_get_next_line(fd);
+   26|    500|	s_array = ft_split(s, ' ');
+   27|    500|	return (s_array);
+   28|    500|}
+   29|       |
+   30|       |void ft_get_arguments(t_stack *stack, char **argv)
+   31|      1|{
+   32|      1|	int fd;
+   33|      1|	int i;
+   34|      1|	int j;
+   35|      1|	int z;
+   36|      1|	char **s_array;
+   37|      1|
+   38|      1|	i = 0;
+   39|      1|	z = 0;
+   40|      1|	ft_initialise_array(stack, argv);
+   41|      1|	fd = open(argv[1], O_RDONLY);
+   42|    501|	while (i < stack->rows)
+   43|    500|	{
+   44|    500|		s_array = ft_get_array_argv(fd);
+   45|    500|
+   46|    500|		z = 0;
+   47|    500|		j = 0;
+   48|   250k|		while (j < stack->coloums)
+   49|   250k|		{
+   50|   250k|			stack->data_x[i][j] = j;
+   51|   250k|			stack->data_y[i][j] = i;
+   52|   250k|			stack->data_z[i][j] = ft_fdf_atoi(s_array[j]);
+   53|   250k|			j++;
+   54|   250k|		}
+   55|    500|		i++;
+   56|    500|	}
+   57|      1|	close(fd);
+   58|      1|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_get_coordinates.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_get_coordinates.c                               :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/02/25 02:26:42 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/16 19:30:22 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |// void ft_move_center(t_stack *stack)
+   16|       |// {
+   17|       |// 	int c_x_object;
+   18|       |// 	int c_y_object;
+   19|       |// 	int i;
+   20|       |// 	int j;
+   21|       |
+   22|       |// 	i = 0;
+   23|       |// 	j = 0;
+   24|       |
+   25|       |// 	c_x_object = (stack->tmp_x[0][stack->coloums - 1] - stack->tmp_x[0][0]) /2;
+   26|       |// 	c_y_object = (stack->tmp_y[stack->rows - 1 ][0] - stack->tmp_y[0][0]) /2;
+   27|       |// 	stack->c_x = stack->s_x - c_x_object;
+   28|       |// 	stack->c_y = stack->s_x - c_x_object;
+   29|       |
+   30|       |// 	while (i < stack->coloums)
+   31|       |// 	{
+   32|       |// 		j = 0;
+   33|       |// 		while (j < stack->rows)
+   34|       |// 		{
+   35|       |// 			stack->tmp_x[i][j] = stack->tmp_x[i][j] + stack->c_x;
+   36|       |// 			stack->tmp_y[i][j] = stack->tmp_y[i][j] + stack->c_y;
+   37|       |// 			j++;
+   38|       |// 		}
+   39|       |// 		i++;
+   40|       |// 	}
+   41|       |// }
+   42|       |
+   43|       |double ft_cos(int angle)
+   44|   500k|{
+   45|   500k|	double rad_angle;
+   46|   500k|	double c;
+   47|   500k|
+   48|   500k|	rad_angle = angle * 3.14 / 180;
+   49|   500k|	c = cos(rad_angle);
+   50|   500k|	return (c);
+   51|   500k|}
+   52|       |
+   53|       |double ft_sin(int angle)
+   54|   500k|{
+   55|   500k|	double rad_angle;
+   56|   500k|	double c;
+   57|   500k|
+   58|   500k|	rad_angle = angle * 3.14 / 180;
+   59|   500k|	c = sin(rad_angle);
+   60|   500k|	return (c);
+   61|   500k|}
+   62|       |
+   63|       |void ft_middle_coordinate(t_stack *stack)
+   64|      1|{
+   65|      1|	stack->c_x = (stack->data_x[0][stack->coloums - 1] * stack->factor_x + stack->data_x[stack->rows - 1][0] * stack->factor_x)/2;
+   66|      1|	stack->c_y = (stack->data_y[0][stack->coloums - 1] * stack->factor_x + stack->data_y[stack->rows - 1][0] * stack->factor_x)/2;
+   67|      1|	stack->wc_x = stack->s_x - (stack->data_x[0][stack->coloums - 1] * stack->factor_x + stack->data_x[stack->rows - 1][0] * stack->factor_x)/2;
+   68|      1|	stack->wc_y = stack->s_x - (stack->data_x[0][stack->coloums - 1] * stack->factor_x + stack->data_x[stack->rows - 1][0] * stack->factor_x)/2;
+   69|      1|}
+   70|       |void ft_get_coordinates(t_stack *stack)
+   71|      1|{
+   72|      1|	int i;
+   73|      1|	int j;
+   74|      1|	int tmp_x;
+   75|      1|
+   76|      1|	i = 0;
+   77|      1|	ft_middle_coordinate(stack);
+   78|    501|	while (i < stack->rows)
+   79|    500|	{
+   80|    500|		j = 0;
+   81|   250k|		while (j < stack->coloums)
+   82|   250k|		{
+   83|   250k|			stack->tmp_x[i][j] = stack->data_x[i][j] * stack->factor_x;
+   84|   250k|			stack->tmp_y[i][j] = stack->data_y[i][j] * stack->factor_x;
+   85|   250k|			stack->tmp_x[i][j] = stack->tmp_x[i][j];
+   86|   250k|			stack->tmp_y[i][j] = stack->tmp_y[i][j];
+   87|   250k|			tmp_x = stack->tmp_x[i][j];
+   88|   250k|			stack->tmp_x[i][j] = (stack->tmp_x[i][j] - stack->c_x) * ft_cos(stack->angle) - (stack->tmp_y[i][j] - stack->c_y) * ft_sin(stack->angle) + stack->c_x  + stack->wc_x;
+   89|   250k|			stack->tmp_y[i][j]= (tmp_x - stack->c_x) * ft_sin(stack->angle) + ((stack->tmp_y[i][j] - stack->c_y) * ft_cos(stack->angle)) + stack->c_y  + stack->wc_x;
+   90|   250k|			stack->tmp_y[i][j] = stack->tmp_y[i][j] - (stack->data_z[i][j] * stack->factor_z);
+   91|   250k|			j++;
+   92|   250k|		}
+   93|    500|		i++;
+   94|    500|	}
+   95|      1|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_gettime.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_gettime.c                                       :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/16 22:43:12 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/17 03:01:21 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |double	ft_gettime(t_stack *stack)
+   16|      0|{
+   17|      0|	mach_timespec_t	current_time;
+   18|      0|
+   19|      0|	clock_get_time(stack->clock_service, &current_time);
+   20|      0|	return ((current_time.tv_sec - stack->start_time.tv_sec)
+   21|      0|		+ (current_time.tv_nsec - stack->start_time.tv_nsec) / 1000000000.0);
+   22|      0|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_initialise_array.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_initialise_array.c                              :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/05 18:37:19 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/17 03:29:45 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |
+   16|       |char	*hax_get_next_line(int fd);
+   17|       |
+   18|       |int ft_get_rows(char **argv)
+   19|      1|{
+   20|      1|	int i;
+   21|      1|	int fd;
+   22|      1|	char *s;
+   23|      1|	i = 0;
+   24|      1|	fd = open(argv[1], O_RDONLY);
+   25|    501|	while ((s = ft_get_next_line(fd)) != NULL)
+   26|    500|	{
+   27|    500|		i++;
+   28|    500|	}
+   29|      1|	if (i == 1)
+   30|      0|	{
+   31|      0|		ft_putendl_fd("Error! Provide a proper 2D Map instead of a single line you retard!", 2);
+   32|      0|		close(fd);
+   33|      0|		exit(1);
+   34|      0|	}
+   35|      1|	close(fd);
+   36|      1|	return (i);
+   37|      1|}
+   38|       |
+   39|       |int ft_get_coloums(char **argv)
+   40|      1|{
+   41|      1|	int i;
+   42|      1|	int fd;
+   43|      1|	int z;
+   44|      1|	char *s;
+   45|      1|	char **s_array;
+   46|      1|
+   47|      1|	i = 0;
+   48|      1|	fd = open(argv[1], O_RDONLY);
+   49|      1|	if ((s = ft_get_next_line(fd)) != NULL)
+   50|      1|	{
+   51|      1|		s_array = ft_split(s, ' ');
+   52|    501|		while(s_array[i] != NULL)
+   53|    500|			i++;
+   54|      1|	}
+   55|      1|	z = i;
+   56|    500|	while ((s = ft_get_next_line(fd)) != NULL)
+   57|    499|	{
+   58|    499|		z++;
+   59|    499|	}
+   60|      1|	close(fd);
+   61|      1|	return (i);
+   62|      1|}
+   63|       |
+   64|       |int	**ft_malloc_2d_array(t_stack *stack, int ***array_adress)
+   65|      7|{
+   66|      7|	int i;
+   67|      7|	int j;
+   68|      7|
+   69|      7|	i = 0;
+   70|      7|	j = 0;
+   71|      7|	*array_adress = (int **)malloc(stack->rows * sizeof(int *));
+   72|      7|	if (*array_adress == NULL)
+   73|      7|		ft_putendl_fd("Error: could not allocate memory for row pointers\n", 2);
+   74|  3.50k|	while (i < stack->rows)
+   75|  3.50k|	{
+   76|  3.50k|		(*array_adress)[i] = (int*) malloc(stack->coloums * sizeof(int));
+   77|  3.50k|		if ((*array_adress)[i] == NULL)
+   78|  3.50k|		{
+   79|      0|			ft_putendl_fd("Error: could not allocate memory for row %d\n", 2);
+   80|      0|			while ( j < i)
+   81|      0|			{
+   82|      0|				free((*array_adress)[j++]);
+   83|      0|			}
+   84|      0|			free(*array_adress);
+   85|      0|			exit(EXIT_FAILURE);
+   86|      0|		}
+   87|  3.50k|		i++;
+   88|  3.50k|	}
+   89|      7|	return ((*array_adress));
+   90|      7|}
+   91|       |
+   92|       |void ft_initialise_array(t_stack *stack, char **argv)
+   93|      1|{
+   94|      1|	printf("ft_get_rows\n");
+   95|      1|	stack->rows = ft_get_rows(argv);
+   96|      1|	printf("ft_get_columns\n");
+   97|      1|	stack->coloums = ft_get_coloums(argv);
+   98|      1|	if (stack->coloums == 0 || stack->rows == 0)
+   99|      0|	{
+  100|      0|		ft_putendl_fd("Error! Provide a proper 2D Map instead of an empty one you retard!", 2);
+  101|      0|		exit(1);
+  102|      0|	}
+  103|      1|	if (stack->coloums == 1)
+  104|      0|	{
+  105|      0|		ft_putendl_fd("Error! You are gay ! Beside that provide a proper 2D Map instead of this crap you retard!", 2);
+  106|      0|		exit(1);
+  107|      0|	}
+  108|      1|	ft_malloc_2d_array(stack, &stack->data_x);
+  109|      1|	ft_malloc_2d_array(stack, &stack->data_y);
+  110|      1|	ft_malloc_2d_array(stack, &stack->data_z);
+  111|      1|	ft_malloc_2d_array(stack, &stack->tmp_x);
+  112|      1|	ft_malloc_2d_array(stack, &stack->tmp_y);
+  113|      1|	ft_malloc_2d_array(stack, &stack->tmp_z);
+  114|      1|	ft_malloc_2d_array(stack, &stack->data_color);
+  115|      1|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_input.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_input.c                                         :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/02/11 17:42:03 by vziegler          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/16 20:37:54 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void	ft_input(char *argv)
+   16|      1|{
+   17|      1|	int	i;
+   18|      1|
+   19|      1|	i = 0;
+   20|     22|	while (argv[i])
+   21|     21|		i++;
+   22|      1|	if (argv[i - 1] != 'f' || argv[i - 2] != 'd' || argv[i - 3] != 'f')
+   23|      0|	{
+   24|      0|		ft_putendl_fd("Error! Wrong input file. Ask Chat Gpt if you are not smart enough!", 2);
+   25|      0|		exit(1);
+   26|      0|	}
+   27|      1|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_key_bar.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_key_bar.c                                       :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/07 02:17:03 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/08 23:06:29 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void		display_control(t_stack *init)
+   16|      0|{
+   17|      0|	mlx_string_put(init->mlx, init->win, 5, 125, COLOR_WHITE,
+   18|      0|	"Color_Basis: W = White, B = Blue, R = Red, G = Green");
+   19|      0|	mlx_string_put(init->mlx, init->win, 5, 145, COLOR_WHITE,
+   20|      0|	"Color_Altitude: H = White, Y = Yellow, C = Cyan, P = Pink");
+   21|      0|	mlx_string_put(init->mlx, init->win, 5, 25, COLOR_WHITE,
+   22|      0|	"Moves: Directional Arrows");
+   23|      0|	mlx_string_put(init->mlx, init->win, 5, 5, COLOR_WHITE,
+   24|      0|	"Zoom In & Out: + & -");
+   25|      0|	mlx_string_put(init->mlx, init->win, 5, 65, COLOR_WHITE,
+   26|      0|	"Increase & Decrease Depth: < & >");
+   27|      0|	mlx_string_put(init->mlx, init->win, 5, 85, COLOR_WHITE,
+   28|      0|	"Increase & Decrease Lenght: 4 & 6");
+   29|      0|	mlx_string_put(init->mlx, init->win, 5, 105, COLOR_WHITE,
+   30|      0|	"Increase & Decrease Height: 8 & 2");
+   31|      0|	mlx_string_put(init->mlx, init->win, 5, 45, COLOR_WHITE,
+   32|      0|	"Rotation X axis: 1 & 0");
+   33|      0|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_keyboard_input.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_keyboard_input.c                                :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/05 19:30:15 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/13 01:58:23 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |static void ft_change_image(t_stack *stack, int color)
+   16|      0|{
+   17|      0|	stack->color = color;
+   18|      0|	ft_reset_image(stack);
+   19|      0|	ft_draw(stack);
+   20|      0|	mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+   21|      0|}
+   22|       |
+   23|       |int ft_keyboard_input(int keycode, t_stack *stack)
+   24|      1|{
+   25|      1|	if (keycode == KEYBOARD_ESC)
+   26|      1|	{
+   27|      1|		mlx_clear_window(stack->mlx, stack->win);
+   28|      1|		exit(0);
+   29|      1|	}
+   30|      0|	if (keycode == KEYBOARD_B)
+   31|      0|		ft_change_image(stack, COLOR_BLUE);
+   32|      0|	if (keycode == KEYBOARD_C)
+   33|      0|		ft_change_image(stack, COLOR_CYAN);
+   34|      0|	// if (keycode == KEYBOARD_P)
+   35|      0|	// 	ft_change_image(stack, COLOR_PURPLE);
+   36|      0|	if (keycode == KEYBOARD_G)
+   37|      0|		ft_change_image(stack, COLOR_GREEN);
+   38|      0|	if (keycode == KEYBOARD_PLUS)
+   39|      0|	{
+   40|      0|		stack->factor_z = stack->factor_z + 1;
+   41|      0|		ft_reset_image(stack);
+   42|      0|		ft_draw(stack);
+   43|      0|		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+   44|      0|	}
+   45|      0|		if (keycode == KEYBOARD_H)
+   46|      0|	{
+   47|      0|		stack->factor_z = stack->factor_z + 1;
+   48|      0|		ft_reset_image(stack);
+   49|      0|		ft_draw(stack);
+   50|      0|		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+   51|      0|	}
+   52|      0|		if (keycode == KEYBOARD_R)
+   53|      0|	{
+   54|      0|		stack->factor_x = stack->factor_x + 1;
+   55|      0|		ft_reset_image(stack);
+   56|      0|		ft_draw(stack);
+   57|      0|		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+   58|      0|	}
+   59|      0|	// 	if (keycode == KEYBOARD_R)
+   60|      0|	// {
+   61|      0|	// 	stack->factor_x = stack->factor_x + 1;
+   62|      0|	// 	ft_reset_image(stack);
+   63|      0|	// 	ft_draw(stack);
+   64|      0|	// 	mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+   65|      0|	// }
+   66|      0|		if (keycode == KEYBOARD_P)
+   67|      0|	{
+   68|      0|		// stack->angle = stack->angle + 1;
+   69|      0|		ft_reset_image(stack);
+   70|      0|		stack->angle += 2;
+   71|      0|		ft_draw(stack);
+   72|      0|		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+   73|      0|	}
+   74|      0|	return 0;
+   75|      0|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_putpixel_to_image.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_putpixel_to_image.c                             :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/05 20:51:16 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/16 22:35:00 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void ft_putpixel_to_image(t_stack *stack, int x, int y, int color)
+   16|  1.55M|{
+   17|  1.55M|	char *index;
+   18|  1.55M|
+   19|  1.55M|	if (x >= 0 && y >= 0 && x< stack->stack_width && y < stack->stack_height)
+   20|  1.55M|	{
+   21|  1.55M|		index = stack->data_ptr + (y * stack->size_line + x * stack->bpp / 8);
+   22|  1.55M|		*(int *)index = color;
+   23|  1.55M|	}
+   24|  1.55M|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_reset_image.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_reset_image.c                                   :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/08 02:44:26 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/08 19:14:34 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void ft_reset_image(t_stack*stack)
+   16|      0|{
+   17|      0|	{
+   18|      0|	int i;
+   19|      0|	int j;
+   20|      0|
+   21|      0|	i = 0;
+   22|      0|
+   23|      0|	while (i < stack->stack_height)
+   24|      0|	{
+   25|      0|		j = 0;
+   26|      0|		while (j < stack->stack_height)
+   27|      0|		{
+   28|      0|			char *index = stack->data_ptr + (j * stack->size_line + i * stack->bpp / 8);
+   29|      0|			if (*(int *)index)
+   30|      0|				*(int *)index = 0;
+   31|      0|			j++;
+   32|      0|		}
+   33|      0|		i++;
+   34|      0|	}
+   35|      0|}
+   36|      0|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/ft_rotate.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   ft_rotate.c                                        :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/03/08 21:21:08 by estruckm          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/16 01:16:22 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void ft_cx(t_stack *stack)
+   16|      0|{
+   17|      0|	int cx;
+   18|      0|
+   19|      0|	cx = abs(stack->tmp_x[stack->rows - 1][0] - stack->tmp_x[0][stack->coloums - 1]);
+   20|      0|	stack->c_x = cx;
+   21|      0|}
+   22|       |
+   23|       |void  ft_cy(t_stack *stack)
+   24|      0|{
+   25|      0|	int cy;
+   26|      0|
+   27|      0|	cy = abs(stack->tmp_y[0][0] - stack->tmp_y[stack->rows - 1][stack->coloums - 1]);
+   28|      0|	stack->c_y = cy;
+   29|      0|}
+   30|       |
+   31|       |void ft_rotate(t_stack *stack)
+   32|      0|{
+   33|      0|	int i;
+   34|      0|	int j;
+   35|      0|	double c;
+   36|      0|	double s;
+   37|      0|	double angle;
+   38|      0|	// int delta_x;
+   39|      0|	// int rotate_factor;
+   40|      0|
+   41|      0|	i = 0;
+   42|      0|	angle = stack->angle * 3.14 / 180;
+   43|      0|	s = sin(angle);
+   44|      0|	c = cos(angle);
+   45|      0|
+   46|      0|	while (i < stack->rows)
+   47|      0|	{
+   48|      0|		j = 0;
+   49|      0|		while (j < stack->coloums)
+   50|      0|		{
+   51|      0|			stack->tmp_x[i][j] = (stack->tmp_x[i][j] - stack->c_x) * c - (stack->tmp_y[i][j] - stack->c_y) * s + stack->c_x;
+   52|      0|			stack->tmp_y[i][j] = (stack->tmp_x[i][j] - stack->c_x) * s + (stack->tmp_y[i][j] - stack->c_y) * c + stack->c_y;
+   53|      0|			j++;
+   54|      0|		}
+   55|      0|		i++;
+   56|      0|	}
+   57|      0|}
+   58|       |// int main()
+   59|       |// {
+   60|       |//     double x, y, width, height;
+   61|       |
+   62|       |
+   63|       |//     double cx = x + width / 2;
+   64|       |//     double cy = y + height / 2;
+   65|       |
+   66|       |//     // Rotate the rectangle by 30 degrees counterclockwise
+   67|       |//     double angle = 30 * PI / 180;
+   68|       |//     double s = sin(angle);
+   69|       |//     double c = cos(angle);
+   70|       |
+   71|       |//     double new_x = (x - cx) * c - (y - cy) * s + cx;
+   72|       |//     double new_y = (x - cx) * s + (y - cy) * c + cy;
+   73|       |
+   74|       |//     return 0;
+   75|       |// }
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/hax.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   hax.c                                              :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2023/01/09 23:33:28 by jsprenge          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/17 03:16:05 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include <stdlib.h>
+   14|       |#include <unistd.h>
+   15|       |
+   16|      0|#define BUFFER_SIZE 1024
+   17|       |
+   18|       |void	copy_buffer(char *destn, const char *source, size_t size)
+   19|      0|{
+   20|      0|	size_t	index;
+   21|      0|
+   22|      0|	index = 0;
+   23|      0|	while (index < size)
+   24|      0|	{
+   25|      0|		destn[index] = source[index];
+   26|      0|		index++;
+   27|      0|	}
+   28|      0|}
+   29|       |
+   30|       |const char	*search_char(const char *ptr, char needle)
+   31|      0|{
+   32|      0|	if (ptr == NULL)
+   33|      0|		return (NULL);
+   34|      0|	while (*ptr)
+   35|      0|	{
+   36|      0|		if (*ptr == needle)
+   37|      0|			return (ptr);
+   38|      0|		ptr++;
+   39|      0|	}
+   40|      0|	if (*ptr == needle)
+   41|      0|		return (ptr);
+   42|      0|	return (NULL);
+   43|      0|}
+   44|       |
+   45|       |char	*substring(const char *start, const char *end)
+   46|      0|{
+   47|      0|	size_t	new_length;
+   48|      0|	char	*new_string;
+   49|      0|
+   50|      0|	new_length = end - start;
+   51|      0|	new_string = malloc(new_length + 1);
+   52|      0|	if (new_string == NULL)
+   53|      0|		return (NULL);
+   54|      0|	copy_buffer(new_string, start, new_length);
+   55|      0|	new_string[new_length] = '\0';
+   56|      0|	return (new_string);
+   57|      0|}
+   58|       |
+   59|       |char	*cleanup_return(char **queue_ptr, char *buffer_ptr)
+   60|      0|{
+   61|      0|	free(*queue_ptr);
+   62|      0|	free(buffer_ptr);
+   63|      0|	*queue_ptr = NULL;
+   64|      0|	return (NULL);
+   65|      0|}
+   66|       |
+   67|       |
+   68|       |static int	queue_push(
+   69|       |		char **queue_ptr, const char *buffer_ptr, size_t buffer_length)
+   70|      0|{
+   71|      0|	const char	*result;
+   72|      0|	char		*new_queue;
+   73|      0|	size_t		old_length;
+   74|      0|	size_t		new_length;
+   75|      0|
+   76|      0|	if (buffer_length == 0)
+   77|      0|		return (0);
+   78|      0|	result = search_char(*queue_ptr, '\0');
+   79|      0|	old_length = result - *queue_ptr;
+   80|      0|	new_length = old_length + buffer_length;
+   81|      0|	new_queue = malloc(new_length + 1);
+   82|      0|	if (new_queue == NULL)
+   83|      0|		return (-1);
+   84|      0|	copy_buffer(new_queue, *queue_ptr, old_length);
+   85|      0|	copy_buffer(&new_queue[old_length], buffer_ptr, buffer_length);
+   86|      0|	new_queue[new_length] = '\0';
+   87|      0|	free(*queue_ptr);
+   88|      0|	*queue_ptr = new_queue;
+   89|      0|	return (0);
+   90|      0|}
+   91|       |
+   92|       |static int	queue_pop(char **queue_ptr, char **line_ptr,
+   93|       |		const char *split_location, const char *end_location)
+   94|      0|{
+   95|      0|	char	*new_queue;
+   96|      0|
+   97|      0|	*line_ptr = substring(*queue_ptr, split_location);
+   98|      0|	if (*line_ptr == NULL)
+   99|      0|		return (-1);
+  100|      0|	new_queue = substring(split_location, end_location);
+  101|      0|	if (new_queue == NULL)
+  102|      0|	{
+  103|      0|		free(*line_ptr);
+  104|      0|		*line_ptr = NULL;
+  105|      0|		return (-1);
+  106|      0|	}
+  107|      0|	free(*queue_ptr);
+  108|      0|	*queue_ptr = new_queue;
+  109|      0|	return (0);
+  110|      0|}
+  111|       |
+  112|       |static int	queue_try_pop(char **queue_ptr, char **line_ptr)
+  113|      0|{
+  114|      0|	const char	*split_location;
+  115|      0|	const char	*end_location;
+  116|      0|
+  117|      0|	split_location = search_char(*queue_ptr, '\n');
+  118|      0|	if (split_location == NULL)
+  119|      0|	{
+  120|      0|		*line_ptr = NULL;
+  121|      0|		return (0);
+  122|      0|	}
+  123|      0|	split_location++;
+  124|      0|	end_location = search_char(split_location, '\0');
+  125|      0|	if (split_location == end_location)
+  126|      0|	{
+  127|      0|		*line_ptr = *queue_ptr;
+  128|      0|		*queue_ptr = NULL;
+  129|      0|		return (0);
+  130|      0|	}
+  131|      0|	return (queue_pop(queue_ptr, line_ptr, split_location, end_location));
+  132|      0|}
+  133|       |
+  134|       |static int	maybe_prepare_return(char **queue_ptr, char **line_ptr,
+  135|       |		size_t buffer_length)
+  136|      0|{
+  137|      0|	if (*line_ptr != NULL)
+  138|      0|		return (1);
+  139|      0|	if (buffer_length == 0)
+  140|      0|	{
+  141|      0|		*line_ptr = *queue_ptr;
+  142|      0|		*queue_ptr = NULL;
+  143|      0|		return (1);
+  144|      0|	}
+  145|      0|	return (0);
+  146|      0|}
+  147|       |
+  148|       |char	*hax_get_next_line(int fd)
+  149|      0|{
+  150|      0|	char		*buffer;
+  151|      0|	ssize_t		length;
+  152|      0|	static char	*queue;
+  153|      0|	char		*line;
+  154|      0|
+  155|      0|	buffer = malloc(BUFFER_SIZE);
+  156|      0|	if (buffer == NULL)
+  157|      0|		return (NULL);
+  158|      0|	while (1)
+  159|      0|	{
+  160|      0|		length = read(fd, buffer, BUFFER_SIZE);
+  161|      0|		if (length < 0)
+  162|      0|			return (cleanup_return(&queue, buffer));
+  163|      0|		if (queue_push(&queue, buffer, length) < 0)
+  164|      0|			return (cleanup_return(&queue, buffer));
+  165|      0|		if (queue_try_pop(&queue, &line) < 0)
+  166|      0|			return (cleanup_return(&queue, buffer));
+  167|      0|		if (maybe_prepare_return(&queue, &line, length))
+  168|      0|		{
+  169|      0|			free(buffer);
+  170|      0|			return (line);
+  171|      0|		}
+  172|      0|	}
+  173|      0|}
+
+/Users/estruckm/Documents/First#Circle/FdF/My_fdf/srcs/main.c:
+    1|       |/* ************************************************************************** */
+    2|       |/*                                                                            */
+    3|       |/*                                                        :::      ::::::::   */
+    4|       |/*   main.c                                             :+:      :+:    :+:   */
+    5|       |/*                                                    +:+ +:+         +:+     */
+    6|       |/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+    7|       |/*                                                +#+#+#+#+#+   +#+           */
+    8|       |/*   Created: 2018/01/12 10:23:17 by nristorc          #+#    #+#             */
+    9|       |/*   Updated: 2023/03/17 03:12:37 by estruckm         ###   ########.fr       */
+   10|       |/*                                                                            */
+   11|       |/* ************************************************************************** */
+   12|       |
+   13|       |#include "../includes/fdf.h"
+   14|       |
+   15|       |void ft_put_pixels(t_stack *stack)
+   16|      0|{
+   17|      0|	int i;
+   18|      0|	int j;
+   19|      0|	// int z;
+   20|      0|
+   21|      0|
+   22|      0|	i = 0;
+   23|      0|	j = 0;
+   24|      0|	while (i < stack->rows)
+   25|      0|	{
+   26|      0|		j = 0;
+   27|      0|		while (j < stack->coloums)
+   28|      0|		{
+   29|      0|			mlx_pixel_put(stack->mlx, stack->win, stack->data_x[i][j], stack->data_y[i][j], 0xFF0000);
+   30|      0|			j++;
+   31|      0|		}
+   32|      0|		i++;
+   33|      0|	}
+   34|      0|}
+   35|       |
+   36|       |void ft_initialize_window(t_stack *stack)
+   37|      1|{
+   38|      1|	stack->stack_width = 1500;
+   39|      1|	stack->stack_height = 1500;
+   40|      1|	stack->s_x = 750;
+   41|      1|	stack->s_y = 750;
+   42|      1|	stack->angle = 30;
+   43|      1|	stack->rotate_x = 1;
+   44|      1|	stack->rotate_y = 1;
+   45|      1|	stack->offset_x = 10;
+   46|      1|	stack->offset_y = 5;
+   47|      1|	stack->factor_x = 1;
+   48|      1|	stack->factor_z = 1;
+   49|      1|	stack->color = 0xFF0000;
+   50|      1|	stack->color_background = 0xFF00FF;
+   51|      1|	stack->mlx = mlx_init();
+   52|      1|	stack->win = mlx_new_window(stack->mlx, stack->stack_width, stack->stack_height, "My Window");
+   53|      1|	stack->img_ptr =mlx_new_image(stack->mlx, stack->stack_width, stack->stack_height);
+   54|      1|    stack->data_ptr = mlx_get_data_addr(stack->img_ptr, &stack->bpp, &stack->size_line, &stack->endian);
+   55|      1|	host_get_clock_service(mach_host_self(), REALTIME_CLOCK, &stack->clock_service);
+   56|      1|	clock_get_time(stack->clock_service, &stack->start_time);
+   57|      1|	stack->last_update_time = 0.0;
+   58|      1|}
+   59|       |int ft_get_color(int red, int green, int blue, int alpha)
+   60|      0|{
+   61|      0|	int color;
+   62|      0|
+   63|      0|	color = (alpha <<24) | (red << 16) | (green << 8) | blue;
+   64|      0|	return (color);
+   65|      0|}
+   66|       |void ft_define_pixel(t_stack *stack, int x, int y, int color)
+   67|      0|{
+   68|      0|	int bpp;
+   69|      0|    int index;
+   70|      0|
+   71|      0|	bpp = 32 / 8;
+   72|      0|	index = (x * stack->size_line) + (y * bpp);
+   73|      0|	*(int *)(stack->data_ptr + index) = color;
+   74|      0|}
+   75|       |
+   76|       |long	millis(struct timeval time)
+   77|      0|{
+   78|      0|	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+   79|      0|}
+   80|       |
+   81|       |int	engine(t_stack *stack)
+   82|      0|{
+   83|      0|	double	time;
+   84|      0|	//struct timeval			current_time;
+   85|      0|	//static struct timeval	time_stamp;
+   86|      0|
+   87|      0|	//gettimeofday(&current_time, NULL);
+   88|      0|	time = ft_gettime(stack);
+   89|      0|	if (time - stack->last_update_time > 0.016)
+   90|      0|	{
+   91|      0|		ft_memset((stack->data_ptr) , 0, 9000000);
+   92|      0|		ft_draw(stack);
+   93|      0|		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+   94|      0|		display_control(stack);
+   95|      0|		stack->angle -= 0.5;
+   96|      0|		stack->last_update_time = time;
+   97|      0|	}
+   98|      0|
+   99|      0|	return (0);
+  100|      0|}
+  101|       |
+  102|       |int	main(int argc, char **argv)
+  103|      1|{
+  104|      1|	t_stack *stack;
+  105|      1|
+  106|      1|	stack = malloc(sizeof(t_stack));
+  107|      1|	if (!stack)
+  108|      0|		ft_putendl_fd("Malloc Error!", 2);
+  109|      1|	if (argc != 2)
+  110|      0|	{
+  111|      0|		ft_putendl_fd("Error! Stupid, stupid, stupid! Provide two valid arguments like './fdf test.fdf' for example", 2);
+  112|      0|		exit(0);
+  113|      0|	}
+  114|      1|	ft_input(argv[1]);
+  115|      1|	ft_get_arguments(stack, argv);
+  116|      1|	printf("test\n");
+  117|      1|	ft_initialize_window(stack);
+  118|      1|	printf("test\n");
+  119|      1|	ft_draw(stack);
+  120|      1|	printf("test\n");
+  121|      1|	mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+  122|      1|	printf("test\n");
+  123|      1|	mlx_key_hook(stack->win, ft_keyboard_input, stack);
+  124|      1|	// mlx_loop_hook(stack->mlx, engine, stack);
+  125|      1|
+  126|      1|	mlx_loop(stack->mlx);
+  127|      1|	return (0);
+  128|      1|}
+  129|       |// minilibx files https://github.com/gcamerli/minilibx/tree/master/src
+  130|       |//
+

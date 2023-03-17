@@ -6,11 +6,13 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:15:41 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/09 17:25:06 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/17 03:29:22 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+char	*hax_get_next_line(int fd);
 
 char **ft_get_array_argv(int fd)
 {
@@ -21,11 +23,7 @@ char **ft_get_array_argv(int fd)
 	z = 0;
 
 	s = ft_get_next_line(fd);
-	// printf("%s \n", s);
 	s_array = ft_split(s, ' ');
-	// while (z < 10)
-	// 		printf("%s ", s_array[z++]);
-	// 	printf("\n");
 	return (s_array);
 }
 
@@ -44,11 +42,11 @@ void ft_get_arguments(t_stack *stack, char **argv)
 	while (i < stack->rows)
 	{
 		s_array = ft_get_array_argv(fd);
+
 		z = 0;
 		j = 0;
 		while (j < stack->coloums)
 		{
-			//fprintf(stderr, "i: %d j: %d\n", i, j);
 			stack->data_x[i][j] = j;
 			stack->data_y[i][j] = i;
 			stack->data_z[i][j] = ft_fdf_atoi(s_array[j]);
