@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:30:15 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/13 01:58:23 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/19 02:04:47 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void ft_change_image(t_stack *stack, int color)
 {
 	stack->color = color;
-	ft_reset_image(stack);
 	ft_draw(stack);
 	mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
 }
@@ -67,7 +66,7 @@ int ft_keyboard_input(int keycode, t_stack *stack)
 	{
 		// stack->angle = stack->angle + 1;
 		ft_reset_image(stack);
-		stack->angle += 2;
+		stack->angle_x += 2;
 		ft_draw(stack);
 		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
 	}

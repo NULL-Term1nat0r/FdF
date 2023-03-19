@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 10:23:17 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/17 04:15:46 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/19 03:42:44 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ void ft_initialize_window(t_stack *stack)
 	stack->stack_height = 1500;
 	stack->s_x = 750;
 	stack->s_y = 750;
-	stack->angle = 30;
+	stack->angle_z = 30;
+	stack->angle_x = 30;
+	stack->angle_y = 0;
 	stack->rotate_x = 1;
 	stack->rotate_y = 1;
 	stack->offset_x = 10;
 	stack->offset_y = 5;
-	stack->factor_x = 1;
+	stack->factor_x = 10;
 	stack->factor_z = 1;
 	stack->color = 0xFF0000;
 	stack->color_background = 0xFF00FF;
@@ -56,13 +58,13 @@ void ft_initialize_window(t_stack *stack)
 	clock_get_time(stack->clock_service, &stack->start_time);
 	stack->last_update_time = 0.0;
 }
-int ft_get_color(int red, int green, int blue, int alpha)
-{
-	int color;
+// int ft_get_color(int red, int green, int blue, int alpha)
+// {
+// 	int color;
 
-	color = (alpha <<24) | (red << 16) | (green << 8) | blue;
-	return (color);
-}
+// 	color = (alpha <<24) | (red << 16) | (green << 8) | blue;
+// 	return (color);
+// }
 void ft_define_pixel(t_stack *stack, int x, int y, int color)
 {
 	int bpp;
@@ -92,7 +94,9 @@ int	engine(t_stack *stack)
 		ft_draw(stack);
 		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
 		display_control(stack);
-		stack->angle -= 0.5;
+		stack->angle_z -= 0.5;
+		stack->angle_x -= 0.5;
+		stack->angle_y -= 0.5;
 		stack->last_update_time = time;
 	}
 
@@ -114,6 +118,10 @@ int	main(int argc, char **argv)
 	ft_input(argv[1]);
 	ft_get_arguments(stack, argv);
 	ft_initialize_window(stack);
+	// ft_get_coordinates(stack);
+	// ft_draw(stack);
+	// mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+	// display_control(stack);
 	mlx_key_hook(stack->win, ft_keyboard_input, stack);
 	mlx_loop_hook(stack->mlx, engine, stack);
 

@@ -6,7 +6,7 @@
 #    By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 22:55:36 by estruckm          #+#    #+#              #
-#    Updated: 2023/03/17 04:17:15 by estruckm         ###   ########.fr        #
+#    Updated: 2023/03/19 02:07:02 by estruckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,9 @@ SRCS =	main.c \
 		ft_key_bar.c \
 		ft_create_image.c \
 		ft_reset_image.c \
-		ft_rotate.c \
 		ft_input.c \
 		ft_gettime.c \
+		ft_get_color.c \
 
 CC = gcc
 CCFLAG = -Wall -Werror -Wextra -Ofast

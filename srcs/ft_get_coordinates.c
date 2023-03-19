@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 02:26:42 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/16 19:30:22 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/19 03:42:28 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,35 @@ void ft_middle_coordinate(t_stack *stack)
 	stack->wc_x = stack->s_x - (stack->data_x[0][stack->coloums - 1] * stack->factor_x + stack->data_x[stack->rows - 1][0] * stack->factor_x)/2;
 	stack->wc_y = stack->s_x - (stack->data_x[0][stack->coloums - 1] * stack->factor_x + stack->data_x[stack->rows - 1][0] * stack->factor_x)/2;
 }
+
+void ft_rotate_x(t_stack *stack, int i, int j)
+{
+	int tmp_z;
+
+	tmp_z = stack->tmp_z[i][j];
+	stack->tmp_z[i][j] = (ft_sin(stack->angle_x) * (stack->tmp_y[i][j] - stack->c_y) + ft_cos(stack->angle_x) * (stack->tmp_y[i][j] - stack->c_y));
+	stack->tmp_y[i][j] = (ft_cos(stack->angle_x) * (stack->tmp_y[i][j] - stack->c_y) - ft_sin(stack->angle_x) * tmp_z);
+}
+void ft_rotate_y(t_stack *stack, int i, int j)
+{
+	int tmp_z;
+
+	tmp_z = stack->tmp_z[i][j];
+	stack->tmp_z[i][j] = (ft_sin(stack->angle_y) * (-1 * (stack->tmp_x[i][j] - stack->c_x)) + ft_cos(stack->angle_y) * stack->tmp_z[i][j]);
+	stack->tmp_x[i][j] = (ft_cos(stack->angle_y) * (stack->tmp_x[i][j] - stack->c_x) + ft_sin(stack->angle_y) * tmp_z + stack->wc_x);
+}
+void ft_rotate_z(t_stack *stack, int i, int j)
+{
+	int tmp_x;
+
+	tmp_x = stack->tmp_x[i][j];
+	stack->tmp_x[i][j] = (stack->tmp_x[i][j] - stack->c_x) * ft_cos(stack->angle_z) - (stack->tmp_y[i][j] - stack->c_y) * ft_sin(stack->angle_z) + stack->c_x  + stack->wc_x;
+	stack->tmp_y[i][j]= (tmp_x - stack->c_x) * ft_sin(stack->angle_z) + ((stack->tmp_y[i][j] - stack->c_y) * ft_cos(stack->angle_z)) + stack->c_y  + stack->wc_x;
+}
 void ft_get_coordinates(t_stack *stack)
 {
 	int i;
 	int j;
-	int tmp_x;
 
 	i = 0;
 	ft_middle_coordinate(stack);
@@ -80,16 +104,53 @@ void ft_get_coordinates(t_stack *stack)
 		j = 0;
 		while (j < stack->coloums)
 		{
-			stack->tmp_x[i][j] = stack->data_x[i][j] * stack->factor_x;
+			stack->tmp_x[i][j] = (stack->data_x[i][j] * stack->factor_x);
 			stack->tmp_y[i][j] = stack->data_y[i][j] * stack->factor_x;
-			stack->tmp_x[i][j] = stack->tmp_x[i][j];
-			stack->tmp_y[i][j] = stack->tmp_y[i][j];
-			tmp_x = stack->tmp_x[i][j];
-			stack->tmp_x[i][j] = (stack->tmp_x[i][j] - stack->c_x) * ft_cos(stack->angle) - (stack->tmp_y[i][j] - stack->c_y) * ft_sin(stack->angle) + stack->c_x  + stack->wc_x;
-			stack->tmp_y[i][j]= (tmp_x - stack->c_x) * ft_sin(stack->angle) + ((stack->tmp_y[i][j] - stack->c_y) * ft_cos(stack->angle)) + stack->c_y  + stack->wc_x;
-			stack->tmp_y[i][j] = stack->tmp_y[i][j] - (stack->data_z[i][j] * stack->factor_z);
+			stack->tmp_z[i][j] = stack->data_z[i][j] * stack->factor_z;
+			ft_rotate_x(stack, i, j);
+			// ft_rotate_z(stack, i, j);
+			stack->tmp_y[i][j] = stack->tmp_y[i][j] + stack->wc_y;
+			stack->tmp_x[i][j] = stack->tmp_x[i][j] + stack->wc_x;
+
+
+			// ft_rotate_y(stack, i, j);
+			// stack->tmp_y[i][j] = stack->tmp_y[i][j] + stack->wc_y;
+
+			// ft_rotate_x(stack, i, j);
+			// stack->tmp_x[i][j] = stack->tmp_x[i][j] + stack->wc_x;
+
+			// stack->tmp_y[i][j] = stack->tmp_x[i][j] + 100;
 			j++;
 		}
 		i++;
 	}
 }
+
+
+// void ft_get_coordinates(t_stack *stack)
+// {
+// 	int i;
+// 	int j;
+// 	int tmp_x;
+
+// 	i = 0;
+// 	ft_middle_coordinate(stack);
+// 	while (i < stack->rows)
+// 	{
+// 		j = 0;
+// 		while (j < stack->coloums)
+// 		{
+// 			stack->tmp_x[i][j] = stack->data_x[i][j] * stack->factor_x;
+// 			stack->tmp_y[i][j] = stack->data_y[i][j] * stack->factor_x;
+// 			stack->tmp_z[i][j] = stack->data_z[i][j] * stack->factor_z;
+// 			stack->tmp_x[i][j] = stack->tmp_x[i][j];
+// 			stack->tmp_y[i][j] = stack->tmp_y[i][j];
+// 			tmp_x = stack->tmp_x[i][j];
+// 			stack->tmp_x[i][j] = (stack->tmp_x[i][j] - stack->c_x) * ft_cos(stack->angle) - (stack->tmp_y[i][j] - stack->c_y) * ft_sin(stack->angle) + stack->c_x  + stack->wc_x;
+// 			stack->tmp_y[i][j]= (tmp_x - stack->c_x) * ft_sin(stack->angle) + ((stack->tmp_y[i][j] - stack->c_y) * ft_cos(stack->angle)) + stack->c_y  + stack->wc_x;
+// 			stack->tmp_y[i][j] = stack->tmp_y[i][j] - stack->tmp_z[i][j];
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
