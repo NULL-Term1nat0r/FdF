@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 10:23:17 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/19 03:42:44 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:19:34 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ void ft_initialize_window(t_stack *stack)
 	stack->angle_z = 30;
 	stack->angle_x = 30;
 	stack->angle_y = 0;
-	stack->rotate_x = 1;
-	stack->rotate_y = 1;
-	stack->offset_x = 10;
-	stack->offset_y = 5;
 	stack->factor_x = 10;
 	stack->factor_z = 1;
-	stack->color = 0xFF0000;
+	stack->move_x = 0;
+	stack->move_y = 0;
+	stack->draw_loop = 0;
+	stack->color = COLOR_BLUE;
+	stack->color_r = 255;
+	stack->color_g = 0;
 	stack->color_background = 0xFF00FF;
 	stack->mlx = mlx_init();
 	stack->win = mlx_new_window(stack->mlx, stack->stack_width, stack->stack_height, "My Window");
@@ -58,13 +59,7 @@ void ft_initialize_window(t_stack *stack)
 	clock_get_time(stack->clock_service, &stack->start_time);
 	stack->last_update_time = 0.0;
 }
-// int ft_get_color(int red, int green, int blue, int alpha)
-// {
-// 	int color;
 
-// 	color = (alpha <<24) | (red << 16) | (green << 8) | blue;
-// 	return (color);
-// }
 void ft_define_pixel(t_stack *stack, int x, int y, int color)
 {
 	int bpp;
@@ -87,19 +82,19 @@ int	engine(t_stack *stack)
 	//static struct timeval	time_stamp;
 
 	//gettimeofday(&current_time, NULL);
-	time = ft_gettime(stack);
-	if (time - stack->last_update_time > 0.016)
+	if (stack->draw_loop == 0)
 	{
-		ft_memset((stack->data_ptr) , 0, 9000000);
-		ft_draw(stack);
-		mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
-		display_control(stack);
-		stack->angle_z -= 0.5;
-		stack->angle_x -= 0.5;
-		stack->angle_y -= 0.5;
-		stack->last_update_time = time;
+		time = ft_gettime(stack);
+		if (time - stack->last_update_time > 0.064)
+		{
+			ft_memset((stack->data_ptr) , 0, 9000000);
+			ft_draw(stack);
+			mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+			display_control(stack);
+			stack->angle_z += 0.1;
+			stack->last_update_time = time;
+		}
 	}
-
 	return (0);
 }
 
@@ -117,16 +112,18 @@ int	main(int argc, char **argv)
 	}
 	ft_input(argv[1]);
 	ft_get_arguments(stack, argv);
+	stack->color_b = 0xFF0000;
 	ft_initialize_window(stack);
-	// ft_get_coordinates(stack);
-	// ft_draw(stack);
-	// mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
-	// display_control(stack);
+	ft_get_coordinates(stack);
 	mlx_key_hook(stack->win, ft_keyboard_input, stack);
 	mlx_loop_hook(stack->mlx, engine, stack);
-
 	mlx_loop(stack->mlx);
+	ft_free_stack(stack);
+	free(stack);
 	return (0);
 }
 // minilibx files https://github.com/gcamerli/minilibx/tree/master/src
 //
+// ft_draw(stack);
+	// mlx_put_image_to_window(stack->mlx, stack->win, stack->img_ptr, 0, 0);
+	// display_control(stack);

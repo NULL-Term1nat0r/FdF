@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:37:19 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/17 03:29:45 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:28:46 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int ft_get_rows(char **argv)
 	fd = open(argv[1], O_RDONLY);
 	while ((s = ft_get_next_line(fd)) != NULL)
 	{
+		free(s);
 		i++;
 	}
 	if (i == 1)
@@ -36,11 +37,31 @@ int ft_get_rows(char **argv)
 	return (i);
 }
 
+// int ft_get_coloums(char **argv)
+// {
+// 	int i;
+// 	int fd;
+// 	char *s;
+// 	char **s_array;
+
+// 	i = 0;
+// 	fd = open(argv[1], O_RDONLY);
+// 	s = ft_get_next_line(fd);
+// 	s_array = ft_split(s, ' ');
+// 	while(s_array[i] != NULL)
+// 		i++;
+// 	while ((s = ft_get_next_line(fd)) != NULL)
+// 		ft_get_next_line(fd);
+// 	// free(s);
+// 	ft_free_2d_char_array(i, s_array);
+// 	close(fd);
+// 	return (i);
+// }
+
 int ft_get_coloums(char **argv)
 {
 	int i;
 	int fd;
-	int z;
 	char *s;
 	char **s_array;
 
@@ -49,14 +70,15 @@ int ft_get_coloums(char **argv)
 	if ((s = ft_get_next_line(fd)) != NULL)
 	{
 		s_array = ft_split(s, ' ');
+		free(s);
 		while(s_array[i] != NULL)
 			i++;
 	}
-	z = i;
 	while ((s = ft_get_next_line(fd)) != NULL)
 	{
-		z++;
+		free(s);
 	}
+	ft_free_2d_char_array(i, s_array);
 	close(fd);
 	return (i);
 }
@@ -91,9 +113,7 @@ int	**ft_malloc_2d_array(t_stack *stack, int ***array_adress)
 
 void ft_initialise_array(t_stack *stack, char **argv)
 {
-	printf("ft_get_rows\n");
 	stack->rows = ft_get_rows(argv);
-	printf("ft_get_columns\n");
 	stack->coloums = ft_get_coloums(argv);
 	if (stack->coloums == 0 || stack->rows == 0)
 	{

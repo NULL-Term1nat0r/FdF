@@ -6,7 +6,7 @@
 #    By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 22:55:36 by estruckm          #+#    #+#              #
-#    Updated: 2023/03/19 02:07:02 by estruckm         ###   ########.fr        #
+#    Updated: 2023/03/21 18:08:53 by estruckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,10 @@ SRCS =	main.c \
 		ft_input.c \
 		ft_gettime.c \
 		ft_get_color.c \
+		ft_free.c \
 
 CC = gcc
-CCFLAG = -Wall -Werror -Wextra -Ofast
+CCFLAG = -Wall -Werror -Wextra -g
 # -fsanitize=address
 #-g -fprofile-instr-generate -fcoverage-mapping
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
@@ -48,7 +49,7 @@ all : $(NAME)
 $(NAME) : $(OBJECT)
 	make $(LIB)
 	make $(GET)
-	$(CC) $(CCFLAG) $(MLXFLAGS) $(OBJECT) ./Get_next_line/get_next_line_bonus.a ./libft/libft.a -o $(NAME) -g -fsanitize=address
+	$(CC) $(CCFLAG) -g $(MLXFLAGS)  $(OBJECT) ./Get_next_line/get_next_line_bonus.a ./libft/libft.a -o $(NAME)
 	echo "$(SUCCESS_COLOR)$(NAME) - Compiled with Success"
 
 clean :

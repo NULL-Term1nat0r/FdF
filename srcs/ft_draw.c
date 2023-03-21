@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:19:34 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/18 00:34:14 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:16:37 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void ft_draw_line_vertical(t_stack *stack, int i, int j, int color)
 	delta_y /= pixels; // 0
 	while (pixels)
 	{
-		if (pixel_x >= 0 && pixel_y >= 0)
-			ft_putpixel_to_image(stack, pixel_x, pixel_y, color);
+		ft_putpixel_to_image(stack, pixel_x, pixel_y, color);
 		pixel_x += delta_x;
 		pixel_y += delta_y;
 		--pixels;
@@ -72,7 +71,7 @@ void ft_draw_line_horizontal_main(t_stack *stack)
 		j = 0;
 		while (j < stack->coloums - 1)
 		{
-			ft_draw_line_horizontal(stack,i ,j, stack->data_color[i][j + i]);
+			ft_draw_line_horizontal(stack,i ,j, stack->data_color[i][j + 1]);
 			j++;
 		}
 		i++;

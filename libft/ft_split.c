@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:21:27 by estruckm          #+#    #+#             */
-/*   Updated: 2022/12/23 19:50:38 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:27:36 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**ft_split(const char *s, char c)
 	char	**ret;
 	size_t	i;
 	size_t	len;
-
+	
 	if (!s)
 		return (0);
 	i = 0;
