@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 10:23:17 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/21 18:19:34 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/22 04:13:53 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void ft_put_pixels(t_stack *stack)
 
 void ft_initialize_window(t_stack *stack)
 {
-	stack->stack_width = 1500;
+	stack->stack_width = 1900;
 	stack->stack_height = 1500;
 	stack->s_x = 750;
 	stack->s_y = 750;
@@ -46,11 +46,10 @@ void ft_initialize_window(t_stack *stack)
 	stack->factor_z = 1;
 	stack->move_x = 0;
 	stack->move_y = 0;
+	stack->color_rgb = 0;
+	stack->isometric_mode = 0;
 	stack->draw_loop = 0;
-	stack->color = COLOR_BLUE;
-	stack->color_r = 255;
-	stack->color_g = 0;
-	stack->color_background = 0xFF00FF;
+	stack->color_background = 0x778899;
 	stack->mlx = mlx_init();
 	stack->win = mlx_new_window(stack->mlx, stack->stack_width, stack->stack_height, "My Window");
 	stack->img_ptr =mlx_new_image(stack->mlx, stack->stack_width, stack->stack_height);
@@ -85,7 +84,7 @@ int	engine(t_stack *stack)
 	if (stack->draw_loop == 0)
 	{
 		time = ft_gettime(stack);
-		if (time - stack->last_update_time > 0.064)
+		if (time - stack->last_update_time > 0.16)
 		{
 			ft_memset((stack->data_ptr) , 0, 9000000);
 			ft_draw(stack);
@@ -101,6 +100,9 @@ int	engine(t_stack *stack)
 int	main(int argc, char **argv)
 {
 	t_stack *stack;
+	int i;
+
+	i = 12;
 
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
@@ -111,8 +113,12 @@ int	main(int argc, char **argv)
 		exit(0);
 	}
 	ft_input(argv[1]);
+	stack->color_a = 0;
+	stack->color_r = 255;
+	stack->color_g = 0;
+	stack->color_b = 0;
+	stack->color_change = 0;
 	ft_get_arguments(stack, argv);
-	stack->color_b = 0xFF0000;
 	ft_initialize_window(stack);
 	ft_get_coordinates(stack);
 	mlx_key_hook(stack->win, ft_keyboard_input, stack);

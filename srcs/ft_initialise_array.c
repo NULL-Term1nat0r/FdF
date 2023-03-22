@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:37:19 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/21 19:28:46 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:34:04 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,19 @@ int ft_get_coloums(char **argv)
 
 	i = 0;
 	fd = open(argv[1], O_RDONLY);
-	if ((s = ft_get_next_line(fd)) != NULL)
+	while ((s = ft_get_next_line(fd)) != NULL)
 	{
 		s_array = ft_split(s, ' ');
 		free(s);
 		while(s_array[i] != NULL)
 			i++;
+		ft_free_2d_char_array(i, s_array);
 	}
-	while ((s = ft_get_next_line(fd)) != NULL)
-	{
-		free(s);
-	}
-	ft_free_2d_char_array(i, s_array);
+	// while ((s = ft_get_next_line(fd)) != NULL)
+	// {
+	// 	free(s);
+	// }
+	// ft_free_2d_char_array(i, s_array);
 	close(fd);
 	return (i);
 }

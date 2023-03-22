@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:15:41 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/21 18:49:00 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/22 04:18:49 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ void ft_get_arguments(t_stack *stack, char **argv)
 			stack->data_y[i][j] = i;
 			// printf("string: %s", s_array[j]);
 			stack->data_z[i][j] = ft_fdf_atoi(s_array[j]);
+			printf("test %d\n", j);
+			printf("test %s\n", s_array[j]);
 
 			stack->data_color[i][j] = ft_hex_to_color(stack, s_array[j]);
 			j++;
 		}
+		ft_free_2d_char_array(stack->coloums, s_array);
 		i++;
 	}
 	// ft_free_2d_char_array(stack->rows, s_array);

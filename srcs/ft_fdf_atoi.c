@@ -6,15 +6,16 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 02:43:02 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/21 18:18:44 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/22 00:49:10 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int ft_rgbToColor(int r, int g, int b)
+int ft_rgb_to_color(int a, int r, int g, int b)
 {
-	int color = ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
+	int color;
+	color = (a << 24) | (r << 16) | (g << 8) | b;
 	return (color);
 }
 
@@ -47,10 +48,10 @@ int	ft_hex_to_color(t_stack *stack, const char *str)
 	}
 	if (color == 0)
 	{
-		color = stack->color_b;
-		return (ft_rgbToColor(255, 0, 0));
+		color = ft_rgb_to_color(stack->color_a, stack->color_r, stack->color_g, stack->color_b);
+ 		return (color);
 	}
- 	return (color);
+	return (color);
 }
 
 int	ft_fdf_atoi(char *argv)

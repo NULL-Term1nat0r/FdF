@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:16:04 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/21 18:15:53 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/22 03:22:12 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/time.h>
 # include <mach/mach.h>
 # include <mach/clock.h>
+// # include "../minilibx_macos/mlx_int.h"
 # include "../minilibx_macos/mlx.h"
 
 # define COLOR_WHITE 0xFFFFFF
@@ -179,6 +180,7 @@ typedef struct s_stack
 	double factor_z;
 
 	int draw_loop;
+	int isometric_mode;
 	int c_x;
 	int c_y;
 	int wc_x;
@@ -186,10 +188,12 @@ typedef struct s_stack
 
 	int				speed;
 
-	int color;
+	int color_rgb;
+	int color_a;
 	int color_r;
 	int color_g;
 	int color_b;
+	int color_change;
 	int color_background;
 	int bpp;
 	int size_line;
@@ -229,7 +233,8 @@ void ft_free_2d_char_array(int num, char **array);
 void ft_free_1d_char_array(t_stack *stack, char *array);
 void ft_free_stack(t_stack *stack);
 
-int ft_rgbToColor(int r, int g, int b);
+int ft_rgb_to_color(int a, int r, int g, int b);
+void ft_draw_sidebar(t_stack *stack);
 
 // int		ft_hex_to_int(char hex);
 

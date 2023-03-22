@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:19:34 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/20 14:16:37 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/22 03:50:09 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,55 @@ void ft_draw_line_vertical_main(t_stack *stack)
 	}
 }
 
+void ft_change_color(t_stack *stack)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < stack->rows)
+	{
+		j = 0;
+		while (j < stack->coloums)
+		{
+			stack->data_color[i][j] = ft_rgb_to_color(stack->color_a, stack->color_r, stack->color_g, stack->color_b);
+			j++;
+		}
+		i++;
+	}
+}
+
+void ft_draw_sidebar(t_stack *stack)
+{
+	int i;
+	int j;
+	int color;
+
+	i = 0;
+	color = ft_rgb_to_color(0, 40, 40, 40);
+
+	while (i < 1500)
+	{
+		j = 0;
+		while (j < 1900)
+		{
+
+			ft_putpixel_to_image(stack, j, i, color);
+			// t_putpixel_to_image(t_stack *stack, int x, int y, int color)
+			j++;
+		}
+		i++;
+	}
+}
+
 void ft_draw(t_stack *stack)
 {
 	ft_get_coordinates(stack);
+	ft_reset_image(stack);
+	ft_draw_sidebar(stack);
+	if (stack->color_change != 0)
+		ft_change_color(stack);
 	ft_draw_line_horizontal_main(stack);
 	ft_draw_line_vertical_main(stack);
+	// ft_draw_sidebar(stack);
 }
