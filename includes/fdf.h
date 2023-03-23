@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:16:04 by nristorc          #+#    #+#             */
-/*   Updated: 2023/03/22 03:22:12 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:59:27 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,6 @@ typedef struct s_stack
 	int rows;
 	int coloums;
 
-	int s_x;
-	int s_y;
 	double angle_x;
 	double angle_y;
 	double angle_z;
@@ -185,7 +183,6 @@ typedef struct s_stack
 	int c_y;
 	int wc_x;
 	int wc_y;
-
 	int				speed;
 
 	int color_rgb;
@@ -194,7 +191,6 @@ typedef struct s_stack
 	int color_g;
 	int color_b;
 	int color_change;
-	int color_background;
 	int bpp;
 	int size_line;
 	int endian;
@@ -212,7 +208,6 @@ typedef struct s_stack
 
 int		ft_fdf_atoi(char *argv);
 int		ft_get_color(char *argv);
-void	ft_fdf_print_list(t_stack *stack);
 void	ft_draw(t_stack *stack);
 void	ft_get_arguments(t_stack *stack, char **argv);
 void	ft_get_coordinates(t_stack *stack);
@@ -220,7 +215,6 @@ void	ft_initialise_array(t_stack *stack, char **argv);
 int		ft_keyboard_input(int keycode, t_stack *stack);
 void	ft_putpixel_to_image(t_stack *stack, int x, int y, int color);
 void	display_control(t_stack *init);
-void	ft_create_image(t_stack *stack);
 void	ft_reset_image(t_stack *stack);
 void	ft_cy(t_stack *stack);
 void	ft_cx(t_stack *stack);
@@ -236,6 +230,22 @@ void ft_free_stack(t_stack *stack);
 int ft_rgb_to_color(int a, int r, int g, int b);
 void ft_draw_sidebar(t_stack *stack);
 
+void	ft_move_center(t_stack *stack, int i, int j, int mode);
+void	ft_middle_coordinate(t_stack *stack);
+void	ft_rotate_x(t_stack *stack, int i, int j);
+void	ft_rotate_y(t_stack *stack, int i, int j);
+void	ft_rotate_z(t_stack *stack, int i, int j);
+
+double	ft_cos(int angle);
+double	ft_sin(int angle);
+
+void	ft_draw_line_horizontal(t_stack *stack, int i, int j, int color);
+void	ft_draw_line_vertical(t_stack *stack, int i, int j, int color);
+void	ft_draw_line_horizontal_main(t_stack *stack);
+void	ft_draw_line_vertical_main(t_stack *stack);
+
+char	*ft_create_double_string(double *variable, char *description);
+char	*ft_create_int_string(int variable, char *description, char *dest);
 // int		ft_hex_to_int(char hex);
 
 #endif

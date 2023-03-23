@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fdf_print_list.c                                :+:      :+:    :+:   */
+/*   ft_trigonomic_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 03:01:05 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/18 00:50:32 by estruckm         ###   ########.fr       */
+/*   Created: 2023/03/23 10:07:24 by estruckm          #+#    #+#             */
+/*   Updated: 2023/03/23 12:35:18 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	ft_fdf_print_list(t_stack *stack)
+double	ft_cos(int angle)
 {
-	int i;
-	int j;
+	double	rad_angle;
+	double	c;
 
-	i = 0;
-	j = 0;
-	while(i < stack->rows)
-	{
-		j = 0;
-		while(j < stack->coloums)
-		{
-			printf("(%d|%d|%d|%x) ", stack->tmp_x[i][j], stack->tmp_y[i][j], stack->data_z[i][j], stack->data_color[i][j]);
-			j++;
-		}
-		printf("\n\n");
-		i++;
-	}
+	rad_angle = angle * 3.14 / 180;
+	c = cos(rad_angle);
+	return (c);
+}
+
+double	ft_sin(int angle)
+{
+	double	rad_angle;
+	double	c;
+
+	rad_angle = angle * 3.14 / 180;
+	c = sin(rad_angle);
+	return (c);
 }

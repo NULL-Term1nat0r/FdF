@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:42:03 by vziegler          #+#    #+#             */
-/*   Updated: 2023/03/16 20:37:54 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:13:06 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_input(char *argv)
 		i++;
 	if (argv[i - 1] != 'f' || argv[i - 2] != 'd' || argv[i - 3] != 'f')
 	{
-		ft_putendl_fd("Error! Wrong input file. Ask Chat Gpt if you are not smart enough!", 2);
+		ft_putendl_fd("Error! Wrong input file. Ask Chat Gpt!", 2);
 		exit(1);
 	}
 }

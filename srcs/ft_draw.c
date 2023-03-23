@@ -6,100 +6,16 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:19:34 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/22 03:50:09 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/23 12:45:46 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void ft_draw_line_horizontal(t_stack *stack, int i, int j, int color)
+void	ft_change_color(t_stack *stack)
 {
-	double delta_x;
-	double delta_y;
-	double pixel_x;
-	double pixel_y;
-	int pixels;
-
-	pixel_x = stack->tmp_x[i][j];
-	pixel_y = stack->tmp_y[i][j];
-	delta_x = stack->tmp_x[i][j + 1] - stack->tmp_x[i][j];
-	delta_y = stack->tmp_y[i][j + 1] - stack->tmp_y[i][j];
-	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
-	delta_x /= pixels; // 1
- 	delta_y /= pixels; // 0
-	while (pixels)
-	{
-		ft_putpixel_to_image(stack, pixel_x, pixel_y, color);
-		pixel_x += delta_x;
-		pixel_y += delta_y;
-		--pixels;
-	}
-}
-
-void ft_draw_line_vertical(t_stack *stack, int i, int j, int color)
-{
-	double delta_x;
-	double delta_y;
-	double pixel_x;
-	double pixel_y;
-	int pixels;
-
-	pixel_x = stack->tmp_x[j][i];
-	pixel_y = stack->tmp_y[j][i];
-	delta_x = stack->tmp_x[j + 1][i] - stack->tmp_x[j][i];
-	delta_y = stack->tmp_y[j + 1][i] - stack->tmp_y[j][i];
-	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
-	delta_x /= pixels; // 1
-	delta_y /= pixels; // 0
-	while (pixels)
-	{
-		ft_putpixel_to_image(stack, pixel_x, pixel_y, color);
-		pixel_x += delta_x;
-		pixel_y += delta_y;
-		--pixels;
-	}
-}
-
-void ft_draw_line_horizontal_main(t_stack *stack)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < stack->rows)
-	{
-		j = 0;
-		while (j < stack->coloums - 1)
-		{
-			ft_draw_line_horizontal(stack,i ,j, stack->data_color[i][j + 1]);
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_draw_line_vertical_main(t_stack *stack)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < stack->coloums)
-	{
-		j = 0;
-		while (j < stack->rows - 1)
-		{
-			ft_draw_line_vertical(stack,i ,j, stack->data_color[j + 1][i]);
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_change_color(t_stack *stack)
-{
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < stack->rows)
@@ -107,44 +23,41 @@ void ft_change_color(t_stack *stack)
 		j = 0;
 		while (j < stack->coloums)
 		{
-			stack->data_color[i][j] = ft_rgb_to_color(stack->color_a, stack->color_r, stack->color_g, stack->color_b);
+			stack->data_color[i][j] = ft_rgb_to_color(stack->color_a,
+					stack->color_r, stack->color_g, stack->color_b);
 			j++;
 		}
 		i++;
 	}
 }
 
-void ft_draw_sidebar(t_stack *stack)
+void	ft_draw_background(t_stack *stack)
 {
-	int i;
-	int j;
-	int color;
+	int	i;
+	int	j;
+	int	color;
 
 	i = 0;
 	color = ft_rgb_to_color(0, 40, 40, 40);
-
 	while (i < 1500)
 	{
 		j = 0;
 		while (j < 1900)
 		{
-
 			ft_putpixel_to_image(stack, j, i, color);
-			// t_putpixel_to_image(t_stack *stack, int x, int y, int color)
 			j++;
 		}
 		i++;
 	}
 }
 
-void ft_draw(t_stack *stack)
+void	ft_draw(t_stack *stack)
 {
 	ft_get_coordinates(stack);
 	ft_reset_image(stack);
-	ft_draw_sidebar(stack);
+	ft_draw_background(stack);
 	if (stack->color_change != 0)
 		ft_change_color(stack);
 	ft_draw_line_horizontal_main(stack);
 	ft_draw_line_vertical_main(stack);
-	// ft_draw_sidebar(stack);
 }

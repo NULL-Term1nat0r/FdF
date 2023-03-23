@@ -6,30 +6,34 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:37:19 by estruckm          #+#    #+#             */
-/*   Updated: 2023/03/21 19:34:04 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:44:00 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-
 char	*hax_get_next_line(int fd);
 
-int ft_get_rows(char **argv)
+int	ft_get_rows(char **argv)
 {
-	int i;
-	int fd;
-	char *s;
+	int		i;
+	int		fd;
+	char	*s;
+
 	i = 0;
+
 	fd = open(argv[1], O_RDONLY);
-	while ((s = ft_get_next_line(fd)) != NULL)
+	s = ft_get_next_line(fd);
+	while (s)
 	{
 		free(s);
+		s = ft_get_next_line(fd);
 		i++;
 	}
+	free(s);
 	if (i == 1)
 	{
-		ft_putendl_fd("Error! Provide a proper 2D Map instead of a single line you retard!", 2);
+		ft_putendl_fd("Error! Provide a proper 2D Map!", 2);
 		close(fd);
 		exit(1);
 	}
@@ -37,57 +41,29 @@ int ft_get_rows(char **argv)
 	return (i);
 }
 
-// int ft_get_coloums(char **argv)
-// {
-// 	int i;
-// 	int fd;
-// 	char *s;
-// 	char **s_array;
-
-// 	i = 0;
-// 	fd = open(argv[1], O_RDONLY);
-// 	s = ft_get_next_line(fd);
-// 	s_array = ft_split(s, ' ');
-// 	while(s_array[i] != NULL)
-// 		i++;
-// 	while ((s = ft_get_next_line(fd)) != NULL)
-// 		ft_get_next_line(fd);
-// 	// free(s);
-// 	ft_free_2d_char_array(i, s_array);
-// 	close(fd);
-// 	return (i);
-// }
-
-int ft_get_coloums(char **argv)
+int	ft_get_coloums(char **argv)
 {
-	int i;
-	int fd;
-	char *s;
-	char **s_array;
+	int		i;
+	int		fd;
+	char	*s;
+	char	**s_array;
 
 	i = 0;
 	fd = open(argv[1], O_RDONLY);
-	while ((s = ft_get_next_line(fd)) != NULL)
-	{
-		s_array = ft_split(s, ' ');
-		free(s);
-		while(s_array[i] != NULL)
-			i++;
-		ft_free_2d_char_array(i, s_array);
-	}
-	// while ((s = ft_get_next_line(fd)) != NULL)
-	// {
-	// 	free(s);
-	// }
-	// ft_free_2d_char_array(i, s_array);
+	s = ft_get_next_line(fd);
+	s_array = ft_split(s, ' ');
+	free(s);
+	while (s_array[i] != NULL)
+		i++;
+	ft_free_2d_char_array(i, s_array);
 	close(fd);
 	return (i);
 }
 
 int	**ft_malloc_2d_array(t_stack *stack, int ***array_adress)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -96,11 +72,11 @@ int	**ft_malloc_2d_array(t_stack *stack, int ***array_adress)
 		ft_putendl_fd("Error: could not allocate memory for row pointers\n", 2);
 	while (i < stack->rows)
 	{
-		(*array_adress)[i] = (int*) malloc(stack->coloums * sizeof(int));
+		(*array_adress)[i] = (int *) malloc(stack->coloums * sizeof(int));
 		if ((*array_adress)[i] == NULL)
 		{
 			ft_putendl_fd("Error: could not allocate memory for row %d\n", 2);
-			while ( j < i)
+			while (j < i)
 			{
 				free((*array_adress)[j++]);
 			}
@@ -112,18 +88,18 @@ int	**ft_malloc_2d_array(t_stack *stack, int ***array_adress)
 	return ((*array_adress));
 }
 
-void ft_initialise_array(t_stack *stack, char **argv)
+void	ft_initialise_array(t_stack *stack, char **argv)
 {
 	stack->rows = ft_get_rows(argv);
 	stack->coloums = ft_get_coloums(argv);
 	if (stack->coloums == 0 || stack->rows == 0)
 	{
-		ft_putendl_fd("Error! Provide a proper 2D Map instead of an empty one you retard!", 2);
+		ft_putendl_fd("Error! Provide a non empty 2D Map!", 2);
 		exit(1);
 	}
 	if (stack->coloums == 1)
 	{
-		ft_putendl_fd("Error! You are gay ! Beside that provide a proper 2D Map instead of this crap you retard!", 2);
+		ft_putendl_fd("Error! You are gay! Not a proper 2d Map", 2);
 		exit(1);
 	}
 	ft_malloc_2d_array(stack, &stack->data_x);
